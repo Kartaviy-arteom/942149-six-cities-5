@@ -12,9 +12,6 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path = "/" >
-          <MainPage placesFoundedCount = {placesFoundedCount} />
-        </Route>
         <Route exact path = "/login">
           <LoginPage />
         </Route>
@@ -22,6 +19,9 @@ const App = (props) => {
           <FavoritesPage />
         </Route>
         <Route path="/offer/:id?" exact component={PropertyPage} />
+        <Route>
+          <MainPage placesFoundedCount = {placesFoundedCount} />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
