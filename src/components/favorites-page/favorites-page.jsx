@@ -160,4 +160,5 @@ const FavoritesPage = () => {
     </div>
   );
 };
+
 export default FavoritesPage;
