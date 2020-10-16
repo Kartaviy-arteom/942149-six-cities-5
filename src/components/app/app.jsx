@@ -7,7 +7,7 @@ import FavoritesPage from "../favorites-page/favorites-page";
 import PropertyPage from "../property-page/property-page";
 
 const App = (props) => {
-  const {placesFoundedCount} = props;
+  const {placesFoundedCount, offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -29,6 +29,8 @@ const App = (props) => {
 
 App.propTypes = {
   placesFoundedCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  reviews: PropTypes.object.isRequired,
 };
 
 export default App;
