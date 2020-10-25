@@ -16,11 +16,13 @@ const App = (props) => {
           <LoginPage />
         </Route>
         <Route exact path = "/favorites">
-          <FavoritesPage />
+          <FavoritesPage offers = {offers}/>
         </Route>
-        <Route path="/offer/:id?" exact component={PropertyPage} />
+        <Route path="/offer/:id?" exact >
+          <PropertyPage offer = {offers[0]} reviews = {reviews} />
+        </Route>
         <Route>
-          <MainPage placesFoundedCount = {placesFoundedCount} />
+          <MainPage placesFoundedCount = {placesFoundedCount} offers = {offers} />
         </Route>
       </Switch>
     </BrowserRouter>
