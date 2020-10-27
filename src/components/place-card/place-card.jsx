@@ -5,10 +5,6 @@ import {Link} from "react-router-dom";
 import {MAX_RATING_VALUE} from "../../consts";
 
 class PlaceCard extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {onHover, offer} = this.props;
     const {isPremium, photoPaths, costValue, ratingValue, title, type} = offer;
@@ -19,11 +15,7 @@ class PlaceCard extends PureComponent {
           onHover(this);
         }}
       >
-
-        {
-          isPremium && <div className="place-card__mark"><span>Premium</span></div>
-        }
-
+        {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
         <div className="cities__image-wrapper place-card__image-wrapper">
           <Link to="/offer">
             <div>

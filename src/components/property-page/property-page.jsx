@@ -15,8 +15,7 @@ const PropertyPage = (props) => {
   const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
   return (
     <div className="page">
-      <Header />
-
+      <Header/>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">

@@ -39,7 +39,6 @@ class Header extends PureComponent {
       </header>
     );
   }
-
 }
 
 export default Header;

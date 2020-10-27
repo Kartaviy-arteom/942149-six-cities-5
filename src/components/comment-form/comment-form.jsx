@@ -1,10 +1,32 @@
 import React, {PureComponent} from "react";
-import {MAX_RATING_VALUE} from "../../consts";
 
-let starRatingValues = [];
-for (let i = MAX_RATING_VALUE; i > 0; i--) {
-  starRatingValues.push(i);
-}
+const starConfigs = [
+  {
+    id: `5-stars`,
+    value: 5,
+    title: `perfect`,
+  },
+  {
+    id: `4-stars`,
+    value: 4,
+    title: `good`,
+  },
+  {
+    id: `3-stars`,
+    value: 3,
+    title: `not bad`,
+  },
+  {
+    id: `2-stars`,
+    value: 2,
+    title: `badly`,
+  },
+  {
+    id: `1-star`,
+    value: 1,
+    title: `terribly`,
+  },
+];
 
 class CommentForm extends PureComponent {
   constructor(props) {
@@ -20,13 +42,12 @@ class CommentForm extends PureComponent {
 
   handleSubmit(evt) {
     evt.preventDefault();
+    // TODO: implement submit logic
   }
 
   handleChooseRating(evt) {
-    if (evt.target.classList.contains(`form__rating-input`)) {
-      evt.preventDefault();
-      this.setState({activeStarId: +evt.target.value});
-    }
+    evt.preventDefault();
+    this.setState({activeStarId: evt.target.id});
   }
 
   handleTextAreaChange(evt) {
@@ -38,10 +59,10 @@ class CommentForm extends PureComponent {
       <form className="reviews__form form" action="#" method="post" onSubmit={this.handleSubmit}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating" >
-          {starRatingValues.map((el) => (
-            <React.Fragment key={`${el}-stars`}>
-              <input className="form__rating-input visually-hidden" name="rating" value={el} id={`${el}-stars`} type="radio" checked={el === this.state.activeStarId ? true : false} onChange={this.handleChooseRating}/>
-              <label htmlFor={`${el}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+          {starConfigs.map(({id, value, title}) => (
+            <React.Fragment key={`${id}-stars`}>
+              <input className="form__rating-input visually-hidden" name="rating" value={value} id={id} type="radio" checked={id === this.state.activeStarId ? true : false} onChange={this.handleChooseRating}/>
+              <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
                 <svg className="form__star-image" width="37" height="33">
                   <use xlinkHref="#icon-star"></use>
                 </svg>
