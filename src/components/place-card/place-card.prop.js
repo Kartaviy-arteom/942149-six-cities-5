@@ -7,4 +7,8 @@ export default PropTypes.shape({
   ratingValue: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  amenities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cords: PropTypes.arrayOf(PropTypes.number).isRequired,
+  bedroomsCount: PropTypes.number.isRequired,
+  maxGuestsCount: PropTypes.number.isRequired,
 }).isRequired;

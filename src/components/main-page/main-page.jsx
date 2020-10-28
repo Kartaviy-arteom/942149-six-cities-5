@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import PlacesList from "../places-list/places-list";
 import Header from "../header/header";
+import Map from "../map/map";
 
 const MainPage = (props) => {
   const {placesFoundedCount, offers} = props;
@@ -79,7 +80,9 @@ const MainPage = (props) => {
               <PlacesList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map/>
+              </section>
             </div>
           </div>
         </div>

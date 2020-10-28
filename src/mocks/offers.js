@@ -24,6 +24,7 @@ export default [
       isSuper: true,
     },
     reviewIds: [1, 2, 3, 4],
+    cords: [52.3909553943508, 4.85309666406198]
   },
   {
     offerId: 2,
@@ -43,6 +44,7 @@ export default [
       isSuper: true,
     },
     reviewIds: [5, 6],
+    cords: [52.369553943508, 4.85309666406198]
   },
   {
     offerId: 3,
@@ -62,6 +64,7 @@ export default [
       isSuper: true,
     },
     reviewIds: [7],
+    cords: [52.3909553943508, 4.929309666406198]
   },
   {
     offerId: 4,
@@ -81,5 +84,6 @@ export default [
       isSuper: true,
     },
     reviewIds: [8, 9, 10],
+    cords: [52.3809553943508, 4.939309666406198]
   },
 ];
