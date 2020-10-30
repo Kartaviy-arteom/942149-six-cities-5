@@ -7,7 +7,7 @@ import FavoritesPage from "../favorites-page/favorites-page";
 import PropertyPage from "../property-page/property-page";
 
 const App = (props) => {
-  const {placesFoundedCount} = props;
+  const {placesFoundedCount, offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -16,11 +16,13 @@ const App = (props) => {
           <LoginPage />
         </Route>
         <Route exact path = "/favorites">
-          <FavoritesPage />
+          <FavoritesPage offers = {offers}/>
         </Route>
-        <Route path="/offer/:id?" exact component={PropertyPage} />
+        <Route path="/offer/:id?" exact >
+          <PropertyPage offer = {offers[0]} reviews = {reviews} />
+        </Route>
         <Route>
-          <MainPage placesFoundedCount = {placesFoundedCount} />
+          <MainPage placesFoundedCount = {placesFoundedCount} offers = {offers} />
         </Route>
       </Switch>
     </BrowserRouter>
@@ -29,6 +31,8 @@ const App = (props) => {
 
 App.propTypes = {
   placesFoundedCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  reviews: PropTypes.object.isRequired,
 };
 
 export default App;
