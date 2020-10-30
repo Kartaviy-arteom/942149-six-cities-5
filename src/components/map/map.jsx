@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
-import PlaceCardProp from "../place-card/place-card.prop";
 
 
 class Map extends React.Component {
@@ -14,7 +14,7 @@ class Map extends React.Component {
       iconSize: [30, 30]
     });
     this._zoom = 12;
-    this._offers = this.props.offers;
+    this._offersCord = this.props.offersCord;
   }
 
   initMap() {
@@ -31,9 +31,9 @@ class Map extends React.Component {
       })
       .addTo(this.map);
     const icon = this._icon;
-    this._offers.forEach((element) => {
+    this._offersCord.forEach((element) => {
       leaflet
-       .marker(element.cords, {icon})
+       .marker(element, {icon})
        .addTo(this.map);
     });
   }
@@ -54,7 +54,7 @@ class Map extends React.Component {
 }
 
 Map.propTypes = {
-  offers: PlaceCardProp
+  offersCord: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number).isRequired).isRequired,
 };
 
 export default Map;
