@@ -77,7 +77,7 @@ const MainPage = (props) => {
                 </select>
                 --> */}
               </form>
-              <PlacesList offers={offers}/>
+              <PlacesList offers={offers} className={`cities__places-list tabs__content`} childClassName={`cities__place-card`}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
