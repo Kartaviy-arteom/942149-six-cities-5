@@ -6,11 +6,11 @@ import {MAX_RATING_VALUE} from "../../consts";
 
 class PlaceCard extends PureComponent {
   render() {
-    const {onHover, offer} = this.props;
+    const {onHover, offer, className} = this.props;
     const {isPremium, photoPaths, costValue, ratingValue, title, type} = offer;
     const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
     return (
-      <article className="cities__place-card place-card"
+      <article className={`${className} place-card`}
         onMouseEnter={() => {
           onHover(this);
         }}
@@ -56,7 +56,8 @@ class PlaceCard extends PureComponent {
 
 PlaceCard.propTypes = {
   onHover: PropTypes.func.isRequired,
-  offer: PlaceCardProp
+  offer: PlaceCardProp,
+  className: PropTypes.string
 };
 
 export default PlaceCard;

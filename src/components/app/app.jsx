@@ -19,7 +19,7 @@ const App = (props) => {
           <FavoritesPage offers = {offers}/>
         </Route>
         <Route path="/offer/:id?" exact >
-          <PropertyPage offer = {offers[0]} reviews = {reviews} />
+          <PropertyPage offer = {offers[0]} reviews = {reviews} nearbyOffers = {offers.slice(1)} />
         </Route>
         <Route>
           <MainPage placesFoundedCount = {placesFoundedCount} offers = {offers} />
