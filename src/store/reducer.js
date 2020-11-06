@@ -10,13 +10,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CITIES:
-      return Object.assign({}, state, {city: action.payload});
+    case ActionType.CHANGE_CITY:
+      return Object.assign({}, state, {activeCity: action.payload});
   }
 
   return state;
 };
 
 export {reducer};
-
-

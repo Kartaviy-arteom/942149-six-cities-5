@@ -2,6 +2,7 @@ import React from "react";
 import MainPage from "../main-page/main-page";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
 import LoginPage from "../login-page/login-page";
 import FavoritesPage from "../favorites-page/favorites-page";
 import PropertyPage from "../property-page/property-page";
@@ -19,7 +20,7 @@ const App = (props) => {
           <FavoritesPage offers = {offers}/>
         </Route>
         <Route path="/offer/:id?" exact >
-          <PropertyPage offer = {offers[0]} reviews = {reviews} nearbyOffers = {offers.slice(1)} />
+          <PropertyPage offer = {offers[0]} reviews = {reviews} nearbyOffers = {offers.filter((offer) => offer.city === offers[0].city)} />
         </Route>
         <Route>
           <MainPage placesFoundedCount = {placesFoundedCount} offers = {offers} />
@@ -35,4 +36,8 @@ App.propTypes = {
   reviews: PropTypes.object.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+export default connect(mapStateToProps)(App);
