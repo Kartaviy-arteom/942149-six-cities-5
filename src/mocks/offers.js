@@ -173,7 +173,7 @@ export default [
       isSuper: true,
     },
     reviewIds: [3, 4, 10],
-    cords: [50.9351736212211, 6.95310166406318],
+    cords: [50.9461736212211, 6.95310166406318],
     city: cities[1],
   },
   {
@@ -215,7 +215,7 @@ export default [
       isSuper: true,
     },
     reviewIds: [3, 7],
-    cords: [50.85045736212211, 4.34878166406318],
+    cords: [50.86045736212211, 4.35878166406318],
     city: cities[2],
   },
 ];

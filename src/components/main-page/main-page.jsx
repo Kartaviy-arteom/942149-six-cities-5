@@ -54,7 +54,7 @@ class MainPage extends PureComponent {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offersCord={validOffers.map((el) => el.cords)}/>
+                  <Map offersCord={validOffers.map((el) => el.cords)} activeCity={activeCity}/>
                 </section>
               </div>
             </div>
