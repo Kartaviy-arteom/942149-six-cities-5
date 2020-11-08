@@ -11,6 +11,7 @@ class CitiesList extends PureComponent {
   onCityClick(evt) {
     evt.preventDefault();
     this.props.changeCity(evt.currentTarget.dataset.city);
+    this.props.getHoveredOfferId(null);
   }
   render() {
     const {activeCity, cities} = this.props;
@@ -37,12 +38,16 @@ const mapDispatchToProps = (dispatch) => ({
   changeCity(newCity) {
     dispatch(ActionCreator.changeCity(newCity));
   },
+  getHoveredOfferId(id) {
+    dispatch(ActionCreator.getHoveredOfferId(id));
+  },
 });
 
 CitiesList.propTypes = {
   changeCity: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getHoveredOfferId: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
