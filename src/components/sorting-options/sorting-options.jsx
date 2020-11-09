@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {SortTypes} from "../../consts";
 import {ActionCreator} from "../../store/action";
+import {withActiveFlag} from "../../hocs/with-active-flag/with-active-flag";
 
 const sortTypesList = [
   SortTypes.POPULAR,
@@ -14,15 +15,7 @@ const sortTypesList = [
 class SortingOptions extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      isOpened: false,
-    };
-    this.onSortingTargetClick = this.onSortingTargetClick.bind(this);
     this.onOptionClick = this.onOptionClick.bind(this);
-  }
-
-  onSortingTargetClick() {
-    this.setState((prevState) => ({isOpened: !prevState.isOpened}));
   }
 
   onOptionClick(evt) {
@@ -30,9 +23,9 @@ class SortingOptions extends PureComponent {
   }
 
   render() {
-    const {sortType} = this.props;
+    const {sortType, onActiveChange, isActive} = this.props;
     return (
-      <form className="places__sorting" action="#" method="get" onClick={this.onSortingTargetClick}>
+      <form className="places__sorting" action="#" method="get" onClick={onActiveChange}>
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex="0">
           {sortType}
@@ -40,7 +33,7 @@ class SortingOptions extends PureComponent {
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
         </span>
-        {this.state.isOpened ? (
+        {isActive ? (
           <ul className="places__options places__options--custom places__options--opened">
             {sortTypesList.map((el) => (
               <li className={`places__option ${sortType === el ? `places__option--active` : ``}`} tabIndex="0" onClick={this.onOptionClick} key={el}>{el}</li>
@@ -64,7 +57,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 SortingOptions.propTypes = {
   sortType: PropTypes.string.isRequired,
-  changeSortType: PropTypes.func.isRequired
+  changeSortType: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  onActiveChange: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SortingOptions);
+export default withActiveFlag(connect(mapStateToProps, mapDispatchToProps)(SortingOptions));
