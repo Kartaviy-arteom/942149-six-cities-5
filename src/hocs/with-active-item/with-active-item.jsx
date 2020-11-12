@@ -6,7 +6,7 @@ const withActiveItem = (Component) => {
       super(props);
 
       this.state = {
-        activeCard: null,
+        activeElement: null,
       };
 
       this._handleItemActive = this._handleItemActive.bind(this);
@@ -20,7 +20,7 @@ const withActiveItem = (Component) => {
 
     render() {
       return (
-        <Component {...this.props} activeElement={this.state.isActive} onItemActive={this._handleItemActive}/>
+        <Component {...this.props} activeElement={this.state.activeElement} onItemActive={this._handleItemActive}/>
       );
     }
   };

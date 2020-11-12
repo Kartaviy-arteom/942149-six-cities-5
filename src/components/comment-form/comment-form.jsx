@@ -1,4 +1,7 @@
-import React, {PureComponent} from "react";
+import React from "react";
+import {withActiveItem} from "../../hocs/with-active-item/with-active-item";
+import {withTextValue} from "../../hocs/with-text-value/with-text-value";
+import PropTypes from "prop-types";
 
 const starConfigs = [
   {
@@ -28,58 +31,45 @@ const starConfigs = [
   },
 ];
 
-class CommentForm extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeStarId: null,
-      comment: ``,
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
-    this.handleChooseRating = this.handleChooseRating.bind(this);
-  }
+const CommentForm = ({onItemActive, onTextChange, text, activeElement}) => {
 
-  handleSubmit(evt) {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     // TODO: implement submit logic
-  }
+  };
 
-  handleChooseRating(evt) {
-    evt.preventDefault();
-    this.setState({activeStarId: evt.target.id});
-  }
+  const handleChooseRating = (evt) => {
+    onItemActive(evt.target.id);
+  };
 
-  handleTextAreaChange(evt) {
-    this.setState({comment: evt.target.value});
-  }
+  const handleTextAreaChange = (evt) => {
+    onTextChange(evt.target.value);
+  };
 
-  render() {
-    return (
-      <form className="reviews__form form" action="#" method="post" onSubmit={this.handleSubmit}>
-        <label className="reviews__label form__label" htmlFor="review">Your review</label>
-        <div className="reviews__rating-form form__rating" >
-          {starConfigs.map(({id, value, title}) => (
-            <React.Fragment key={`${id}-stars`}>
-              <input className="form__rating-input visually-hidden" name="rating" value={value} id={id} type="radio" checked={id === this.state.activeStarId ? true : false} onChange={this.handleChooseRating}/>
-              <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
-                <svg className="form__star-image" width="37" height="33">
-                  <use xlinkHref="#icon-star"></use>
-                </svg>
-              </label>
-            </React.Fragment>
-          ))}
-        </div>
-        <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={this.handleTextAreaChange}></textarea>
-        <div className="reviews__button-wrapper">
-          <p className="reviews__help">
-            To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-          </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
-        </div>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+      <div className="reviews__rating-form form__rating" >
+        {starConfigs.map(({id, value, title}) => (
+          <React.Fragment key={`${id}-stars`}>
+            <input className="form__rating-input visually-hidden" name="rating" value={value} id={id} type="radio" checked={id === activeElement ? true : false} onChange={handleChooseRating}/>
+            <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
+              <svg className="form__star-image" width="37" height="33">
+                <use xlinkHref="#icon-star"></use>
+              </svg>
+            </label>
+          </React.Fragment>
+        ))}
+      </div>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextAreaChange} value={text}></textarea>
+      <div className="reviews__button-wrapper">
+        <p className="reviews__help">
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+        </p>
+        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+      </div>
+    </form>
+  );
+};
 
-export default CommentForm;
+export default withTextValue(withActiveItem(CommentForm));
