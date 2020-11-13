@@ -1,23 +1,19 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import ReviewsItem from "../reviews-item/reviews-item";
 
 
 const MAX_REVIEWS_COUNT = 10;
 
-class ReviewsList extends PureComponent {
-
-  render() {
-    const {reviewIds, reviews} = this.props;
-    return (
-      <ul className="reviews__list">
-        {reviewIds.slice(0, Math.min(reviewIds.length, MAX_REVIEWS_COUNT)).map((el, index) =>
-          <ReviewsItem review = {reviews[el]} key={`${el}-${index}`}/>
-        )}
-      </ul>
-    );
-  }
-}
+const ReviewsList = ({reviewIds, reviews}) => {
+  return (
+    <ul className="reviews__list">
+      {reviewIds.slice(0, Math.min(reviewIds.length, MAX_REVIEWS_COUNT)).map((el, index) =>
+        <ReviewsItem review = {reviews[el]} key={`${el}-${index}`}/>
+      )}
+    </ul>
+  );
+};
 
 ReviewsList.propTypes = {
   reviewIds: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,

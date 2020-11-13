@@ -9,7 +9,7 @@ import {withActiveItem} from "../../hocs/with-active-item/with-active-item";
 const PlacesList = ({offers, className, childClassName, sortType, onItemActive, getHoveredOfferId}) => {
   const onHover = (currentCard) => {
     onItemActive(currentCard);
-    getHoveredOfferId(currentCard.props.offer.offerId);
+    getHoveredOfferId(currentCard.offerId);
   };
 
   let sortedOffers = offers.slice();

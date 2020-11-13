@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {SortTypes} from "../../consts";
@@ -12,37 +12,30 @@ const sortTypesList = [
   SortTypes.TOP_RATED
 ];
 
-class SortingOptions extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.onOptionClick = this.onOptionClick.bind(this);
-  }
+const SortingOptions = (props) => {
+  const onOptionClick = (evt) => {
+    props.changeSortType(evt.target.textContent);
+  };
 
-  onOptionClick(evt) {
-    this.props.changeSortType(evt.target.textContent);
-  }
-
-  render() {
-    const {sortType, onActiveChange, isActive} = this.props;
-    return (
-      <form className="places__sorting" action="#" method="get" onClick={onActiveChange}>
-        <span className="places__sorting-caption">Sort by</span>
-        <span className="places__sorting-type" tabIndex="0">
-          {sortType}
-          <svg className="places__sorting-arrow" width="7" height="4">
-            <use xlinkHref="#icon-arrow-select"></use>
-          </svg>
-        </span>
-        {isActive ? (
-          <ul className="places__options places__options--custom places__options--opened">
-            {sortTypesList.map((el) => (
-              <li className={`places__option ${sortType === el ? `places__option--active` : ``}`} tabIndex="0" onClick={this.onOptionClick} key={el}>{el}</li>
-            ))}
-          </ul>) : ``}
-      </form>
-    );
-  }
-}
+  const {sortType, onActiveChange, isActive} = props;
+  return (
+    <form className="places__sorting" action="#" method="get" onClick={onActiveChange}>
+      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-type" tabIndex="0">
+        {sortType}
+        <svg className="places__sorting-arrow" width="7" height="4">
+          <use xlinkHref="#icon-arrow-select"></use>
+        </svg>
+      </span>
+      {isActive ? (
+        <ul className="places__options places__options--custom places__options--opened">
+          {sortTypesList.map((el) => (
+            <li className={`places__option ${sortType === el ? `places__option--active` : ``}`} tabIndex="0" onClick={onOptionClick} key={el}>{el}</li>
+          ))}
+        </ul>) : ``}
+    </form>
+  );
+};
 
 const mapStateToProps = (state) => ({
   sortType: state.sortType,

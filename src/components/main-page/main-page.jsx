@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import PlacesList from "../places-list/places-list";
@@ -7,42 +7,40 @@ import Map from "../map/map";
 import CitiesList from "../cities-list/cities-list";
 import SortingOptions from "../sorting-options/sorting-options";
 
-class MainPage extends PureComponent {
-  render() {
-    const {offers, activeCity} = this.props;
-    const validOffers = offers.filter((el) => el.city === activeCity);
+const MainPage = ({offers, activeCity}) => {
+  const validOffers = offers.filter((el) => el.city === activeCity);
 
-    return (
-      <div className="page page--gray page--main">
-        <Header />
+  return (
+    <div className="page page--gray page--main">
+      <Header />
 
-        <main className="page__main page__main--index">
-          <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <CitiesList activeCity = {activeCity} />
+      <main className="page__main page__main--index">
+        <h1 className="visually-hidden">Cities</h1>
+        <div className="tabs">
+          <section className="locations container">
+            <CitiesList activeCity = {activeCity} />
+          </section>
+        </div>
+        <div className="cities">
+          <div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">{validOffers.length} places to stay in {activeCity}</b>
+              <SortingOptions />
+              <PlacesList offers={validOffers} className={`cities__places-list tabs__content`} childClassName={`cities__place-card`}/>
             </section>
-          </div>
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{validOffers.length} places to stay in {activeCity}</b>
-                <SortingOptions />
-                <PlacesList offers={validOffers} className={`cities__places-list tabs__content`} childClassName={`cities__place-card`}/>
+            <div className="cities__right-section">
+              <section className="cities__map map">
+                <Map validOffers={validOffers}/>
               </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map validOffers={validOffers}/>
-                </section>
-              </div>
             </div>
           </div>
-        </main>
-      </div>
-    );
-  }
-}
+        </div>
+      </main>
+    </div>
+  );
+};
+
 
 MainPage.propTypes = {
   placesFoundedCount: PropTypes.number.isRequired,

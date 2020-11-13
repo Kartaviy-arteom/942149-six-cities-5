@@ -72,4 +72,11 @@ const CommentForm = ({onItemActive, onTextChange, text, activeElement}) => {
   );
 };
 
+CommentForm.propTypes = {
+  onItemActive: PropTypes.func.isRequired,
+  onTextChange: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  activeElement: PropTypes.string
+};
+
 export default withTextValue(withActiveItem(CommentForm));
