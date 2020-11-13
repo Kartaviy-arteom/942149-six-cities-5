@@ -104,7 +104,7 @@ const PropertyPage = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offersCord={nearbyOffers.map((el) => el.cords)}/>
+            <Map validOffers={nearbyOffers}/>
           </section>
         </section>
 

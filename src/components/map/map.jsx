@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -12,25 +13,27 @@ const CityCenterCord = {
   Dusseldorf: [51.233334, 6.783333]
 };
 
+const ZOOM_LEVEL = 12;
+const PinPath = {
+  DEFAULT: `img/pin.svg`,
+  ACTIVE: `img/pin-active.svg`
+};
+
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
-
-    this._icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
     this._zoom = 12;
+    this._pins = [];
   }
 
   initMap() {
-    this._city = CityCenterCord[this.props.activeCity];
-    this._offersCord = this.props.offersCord;
+    this._city = CityCenterCord[this.props.activeCity] || CityCenterCord.Amsterdam;
+    this._offers = this.props.validOffers;
     this.map = leaflet.map(`map`, {
       center: this._city,
-      zoom: this._zoom,
+      zoom: ZOOM_LEVEL,
       zoomControl: false,
       marker: true
     });
@@ -40,11 +43,21 @@ class Map extends React.Component {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(this.map);
-    const icon = this._icon;
-    this._offersCord.forEach((element) => {
-      leaflet
-       .marker(element, {icon})
-       .addTo(this.map);
+
+    this._setPins();
+  }
+
+  _setPins() {
+    const {activeOfferId} = this.props;
+    this._offers.forEach((element, index) => {
+      const icon = leaflet.icon({
+        iconUrl: element.offerId === activeOfferId ? PinPath.ACTIVE : PinPath.DEFAULT,
+        iconSize: [30, 30]
+      });
+
+      this._pins[index] = new leaflet
+       .Marker(element.cords, {icon});
+      this.map.addLayer(this._pins[index]);
     });
   }
 
@@ -57,8 +70,14 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
-    this.map.remove();
-    this.initMap();
+    this._pins.forEach((el) => {
+      this.map.removeLayer(el);
+    });
+    this.map.flyTo(CityCenterCord[this.props.activeCity], ZOOM_LEVEL);
+    this._pins = [];
+    this._offers = this.props.validOffers;
+
+    this._setPins();
   }
 
 
@@ -69,8 +88,13 @@ class Map extends React.Component {
 }
 
 Map.propTypes = {
-  offersCord: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number).isRequired).isRequired,
-  activeCity: PropTypes.string.isRequired
+  validOffers: PropTypes.array.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  activeOfferId: PropTypes.number
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  activeOfferId: state.activeOfferId,
+});
+
+export default connect(mapStateToProps)(Map);
