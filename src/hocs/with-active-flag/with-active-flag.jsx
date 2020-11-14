@@ -15,6 +15,7 @@ const withActiveFlag = (Component) => {
     _handleActiveChange() {
       this.setState((prevState) => ({isActive: !prevState.isActive}));
     }
+
     render() {
       return (
         <Component {...this.props} isActive={this.state.isActive} onActiveChange={this._handleActiveChange}/>

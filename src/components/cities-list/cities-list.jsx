@@ -29,12 +29,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCity(newCity) {
-    dispatch(ActionCreator.changeCity(newCity));
-  },
-  getHoveredOfferId(id) {
-    dispatch(ActionCreator.getHoveredOfferId(id));
-  },
+  changeCity: (newCity) => dispatch(ActionCreator.changeCity(newCity)),
+  getHoveredOfferId: (id) => dispatch(ActionCreator.getHoveredOfferId(id))
 });
 
 CitiesList.propTypes = {

@@ -47,9 +47,7 @@ PlacesList.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getHoveredOfferId(id) {
-    dispatch(ActionCreator.getHoveredOfferId(id));
-  },
+  getHoveredOfferId: (id) => dispatch(ActionCreator.getHoveredOfferId(id))
 });
 
 const mapStateToProps = (state) => ({
