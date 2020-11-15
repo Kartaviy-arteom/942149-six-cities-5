@@ -14,7 +14,6 @@ const MainPage = ({offers, activeCity}) => {
   return (
     <div className="page page--gray page--main">
       <Header />
-
       <main className={`page__main page__main--index ${validOffers.length === 0 ? `page__main--index-empty` : ``}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
