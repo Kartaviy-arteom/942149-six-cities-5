@@ -1,4 +1,4 @@
-import offers from "../mocks/offers";
+// import offers from "../mocks/offers";
 import cities from "../mocks/cities";
 import {SortTypes} from "../consts";
 import {ActionType} from "./action";
@@ -7,7 +7,7 @@ const initialState = {
   cities,
   activeCity: cities[0],
   sortType: SortTypes.POPULAR,
-  offers,
+  offers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +18,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {sortType: action.payload});
     case ActionType.GET_HOVERED_OFFER_ID:
       return Object.assign({}, state, {activeOfferId: action.payload});
+    case ActionType.LOAD_OFFERS:
+      return Object.assign({}, state, {offers: action.payload});
   }
 
   return state;
