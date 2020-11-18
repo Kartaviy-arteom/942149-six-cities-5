@@ -6,7 +6,7 @@ export const adaptOfferToClient = (receivedOffer) => {
         offerId: receivedOffer.id,
         previewImage: receivedOffer.preview_image,
         city: receivedOffer.city.name,
-        cityCords: [receivedOffer.city.location.latitude, receivedOffer.city.location.latitude.longitude],
+        cityCords: [receivedOffer.city.location.latitude, receivedOffer.city.location.longitude],
         cityZoom: receivedOffer.city.location.zoom,
         photoPaths: receivedOffer.images,
         isFavorite: receivedOffer.is_favorite,
@@ -25,24 +25,39 @@ export const adaptOfferToClient = (receivedOffer) => {
         cords: [receivedOffer.location.latitude, receivedOffer.location.longitude],
         offerZoom: receivedOffer.location.zoom,
       }
+
+
   );
+
+  delete adaptedOffer.preview_image;
+  delete adaptedOffer.images;
+  delete adaptedOffer.is_favorite;
+  delete adaptedOffer.is_premium;
+  delete adaptedOffer.rating;
+  delete adaptedOffer.goods;
+  delete adaptedOffer.host;
+  delete adaptedOffer.bedrooms;
+  delete adaptedOffer.max_adults;
+  delete adaptedOffer.price;
+  delete adaptedOffer.location;
+  delete adaptedOffer.id;
 
   return adaptedOffer;
 };
 
 export const adaptCommentToClient = (comment) => {
   const adaptedComment = Object.assign(
-    {},
-    comment,
-    {
-      commentId: comment.id,
-      commentatorId: comment.user.id,
-      isCommentatorPro: comment.user.is_pro,
-      name: comment.user.name,
-      avatarPath: comment.user.avatar_url,
-      reviewText: comment.comment,
-    }
+      {},
+      comment,
+      {
+        commentId: comment.id,
+        commentatorId: comment.user.id,
+        isCommentatorPro: comment.user.is_pro,
+        name: comment.user.name,
+        avatarPath: comment.user.avatar_url,
+        reviewText: comment.comment,
+      }
   );
 
   return adaptedComment;
-}
+};

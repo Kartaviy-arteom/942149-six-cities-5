@@ -6,7 +6,7 @@ import {MAX_RATING_VALUE} from "../../consts";
 
 const PlaceCard = ({onHover, offer, className}) => {
 
-  const {isPremium, photoPaths, costValue, ratingValue, title, type} = offer;
+  const {isPremium, previewImage, costValue, ratingValue, title, type, isFavorite} = offer;
   const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
   return (
     <article className={`${className} place-card`}
@@ -18,7 +18,7 @@ const PlaceCard = ({onHover, offer, className}) => {
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to="/offer">
           <div>
-            <img className="place-card__image" src={photoPaths[0]} width="260" height="200" alt="Place image"/>
+            <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
           </div>
         </Link>
       </div>
@@ -28,7 +28,7 @@ const PlaceCard = ({onHover, offer, className}) => {
             <b className="place-card__price-value">&euro;{costValue}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
