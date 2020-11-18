@@ -24,8 +24,8 @@ const CitiesList = ({changeCity, getHoveredOfferId, activeCity, cities}) => {
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  cities: state.cities
+  activeCity: state.APLICATION_PROCESS.activeCity,
+  cities: state.APLICATION_PROCESS.cities
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -94,8 +94,8 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeOfferId: state.activeOfferId,
-  activeCity: state.activeCity
+  activeOfferId: state.APLICATION_PROCESS.activeOfferId,
+  activeCity: state.APLICATION_PROCESS.activeCity
 });
 
 export default connect(mapStateToProps)(Map);

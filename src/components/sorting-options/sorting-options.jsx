@@ -38,7 +38,7 @@ const SortingOptions = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  sortType: state.sortType,
+  sortType: state.APLICATION_PROCESS.sortType,
   activeOfferCords: state.activeOfferCords
 });
 

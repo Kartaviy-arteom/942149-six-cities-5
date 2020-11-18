@@ -50,7 +50,7 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
+  activeCity: state.APLICATION_PROCESS.activeCity,
 });
 
 export default connect(mapStateToProps)(MainPage);
