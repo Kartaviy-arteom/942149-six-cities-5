@@ -5,12 +5,12 @@ import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 const CityCenterCord = {
-  Paris: [48.853410011111, 2.348800011111],
-  Cologne: [50.941357, 	6.958307],
-  Brussels: [50.8505, 4.3488],
-  Amsterdam: [52.377956, 4.897070],
-  Hamburg: [53.551086, 9.993682],
-  Dusseldorf: [51.233334, 6.783333]
+  Paris: [48.85661, 2.351499],
+  Cologne: [50.938361, 	6.959974],
+  Brussels: [50.846557, 4.351697],
+  Amsterdam: [52.37454, 4.897976],
+  Hamburg: [53.550341, 10.000654],
+  Dusseldorf: [51.225402, 6.776314]
 };
 
 const ZOOM_LEVEL = 12;
@@ -48,10 +48,10 @@ class Map extends React.Component {
   }
 
   _setPins() {
-    const {activeOfferId} = this.props;
+    const {activeOffer} = this.props;
     this._offers.forEach((element, index) => {
       const icon = leaflet.icon({
-        iconUrl: element.offerId === activeOfferId ? PinPath.ACTIVE : PinPath.DEFAULT,
+        iconUrl: (activeOffer && element.offerId === activeOffer.offerId) ? PinPath.ACTIVE : PinPath.DEFAULT,
         iconSize: [30, 30]
       });
 
@@ -70,10 +70,19 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
+    let targetCords;
+    let zoom;
+    if (this.props.activeOffer) {
+      zoom = this.props.activeOffer.offerZoom;
+      targetCords = this.props.activeOffer.cords;
+    } else {
+      zoom = ZOOM_LEVEL;
+      targetCords = CityCenterCord[this.props.activeCity];
+    }
     this._pins.forEach((el) => {
       this.map.removeLayer(el);
     });
-    this.map.flyTo(CityCenterCord[this.props.activeCity], ZOOM_LEVEL);
+    this.map.flyTo(targetCords, zoom);
     this._pins = [];
     this._offers = this.props.validOffers;
 
@@ -90,11 +99,11 @@ class Map extends React.Component {
 Map.propTypes = {
   validOffers: PropTypes.array.isRequired,
   activeCity: PropTypes.string.isRequired,
-  activeOfferId: PropTypes.number
+  activeOffer: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
-  activeOfferId: state.APLICATION_PROCESS.activeOfferId,
+  activeOffer: state.APLICATION_PROCESS.activeOffer,
   activeCity: state.APLICATION_PROCESS.activeCity
 });
 

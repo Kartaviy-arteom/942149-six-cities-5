@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 
-const CitiesList = ({changeCity, getHoveredOfferId, activeCity, cities}) => {
+const CitiesList = ({changeCity, getHoveredOffer, activeCity, cities}) => {
   const onCityClick = (evt) => {
     evt.preventDefault();
     changeCity(evt.currentTarget.dataset.city);
-    getHoveredOfferId(null);
+    getHoveredOffer(null);
   };
 
   return (
@@ -30,14 +30,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeCity: (newCity) => dispatch(ActionCreator.changeCity(newCity)),
-  getHoveredOfferId: (id) => dispatch(ActionCreator.getHoveredOfferId(id))
+  getHoveredOffer: (offer) => dispatch(ActionCreator.getHoveredOffer(offer))
 });
 
 CitiesList.propTypes = {
   changeCity: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  getHoveredOfferId: PropTypes.func.isRequired,
+  getHoveredOffer: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);

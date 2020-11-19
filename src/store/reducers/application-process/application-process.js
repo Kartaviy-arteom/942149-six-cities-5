@@ -15,8 +15,8 @@ const applicationProcess = (state = initialState, action) => {
       return Object.assign({}, state, {activeCity: action.payload});
     case ActionType.CHANGE_SORT_TYPE:
       return Object.assign({}, state, {sortType: action.payload});
-    case ActionType.GET_HOVERED_OFFER_ID:
-      return Object.assign({}, state, {activeOfferId: action.payload});
+    case ActionType.GET_HOVERED_OFFER:
+      return Object.assign({}, state, {activeOffer: action.payload});
   }
 
   return state;
