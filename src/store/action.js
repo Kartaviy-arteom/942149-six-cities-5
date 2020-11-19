@@ -1,7 +1,8 @@
 export const ActionType = {
   CHANGE_CITY: `change city`,
   CHANGE_SORT_TYPE: `change sort type`,
-  GET_HOVERED_OFFER_ID: `get offer ID`
+  GET_HOVERED_OFFER: `get offer`,
+  LOAD_OFFERS: `load offers`
 };
 
 export const ActionCreator = {
@@ -13,8 +14,12 @@ export const ActionCreator = {
     type: ActionType.CHANGE_SORT_TYPE,
     payload: newSortingType
   }),
-  getHoveredOfferId: (id) => ({
-    type: ActionType.GET_HOVERED_OFFER_ID,
-    payload: id
+  getHoveredOffer: (offer) => ({
+    type: ActionType.GET_HOVERED_OFFER,
+    payload: offer
+  }),
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers
   })
 };

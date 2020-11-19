@@ -37,7 +37,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: state.DATA.offers,
 });
 
 export default connect(mapStateToProps)(App);
