@@ -1,6 +1,8 @@
 import React from "react";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
-const LoginPage = () => {
+const LoginPage = ({activeCity}) => {
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -45,7 +47,7 @@ const LoginPage = () => {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
+                <span>{activeCity}</span>
               </a>
             </div>
           </section>
@@ -55,4 +57,12 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+LoginPage.propTypes = {
+  activeCity: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  activeCity: state.APLICATION_PROCESS.activeCity,
+});
+
+export default connect(mapStateToProps)(LoginPage);

@@ -8,7 +8,7 @@ import {Provider} from "react-redux";
 import rootReducer from "./store/reducers/root-reducer";
 import App from "./components/app/app";
 import reviews from "./mocks/reviews";
-import {fetchOffersList} from "./store/api-actions";
+import {fetchOffersList, checkAuth} from "./store/api-actions";
 
 const PLACES_FOUNDED_COUNT = 3450;
 
@@ -24,7 +24,8 @@ const store = createStore(
 );
 
 Promise.all([
-  store.dispatch(fetchOffersList())
+  store.dispatch(fetchOffersList()),
+  store.dispatch(checkAuth())
 ]).then(() => {
 
   ReactDOM.render(
