@@ -61,3 +61,20 @@ export const adaptCommentToClient = (comment) => {
 
   return adaptedComment;
 };
+
+export const adaptUserInfo = (data) => {
+  const adaptedInfo = Object.assign(
+      {},
+      data,
+      {
+        avatarUrl: data.avatar_url,
+        isPro: data.is_pro
+      }
+  );
+
+  delete adaptedInfo.avatar_url;
+  delete adaptedInfo.is_pro;
+
+  return adaptedInfo;
+};
+

@@ -1,7 +1,8 @@
 import React from "react";
 import MainPage from "../main-page/main-page";
 import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
+import browserHistory from "../../browser-history";
 import {connect} from "react-redux";
 import PrivateRoute from "../private-route/private-route";
 import LoginPage from "../login-page/login-page";
@@ -12,7 +13,7 @@ const App = (props) => {
   const {placesFoundedCount, offers, reviews} = props;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path = "/login">
           <LoginPage />

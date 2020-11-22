@@ -11,6 +11,10 @@ const user = (state = initialState, action) => {
       return Object.assign({}, state, {
         authorizationStatus: action.payload,
       });
+    case ActionType.GET_USER_INFO:
+      return Object.assign({}, state, {
+        userInfo: action.payload,
+      });
   }
 
   return state;

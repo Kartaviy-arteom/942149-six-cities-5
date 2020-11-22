@@ -4,6 +4,8 @@ export const ActionType = {
   GET_HOVERED_OFFER: `get offer`,
   LOAD_OFFERS: `load offers`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
+  GET_USER_INFO: `GET_USER_INFO`,
 };
 
 export const ActionCreator = {
@@ -27,4 +29,12 @@ export const ActionCreator = {
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
   }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
+  }),
+  getUserInfo: (data) => ({
+    type: ActionType.GET_USER_INFO,
+    payload: data,
+  })
 };
