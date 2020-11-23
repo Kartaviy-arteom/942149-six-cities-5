@@ -6,6 +6,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   GET_USER_INFO: `GET_USER_INFO`,
+  UPDATE_OFFER: `UPDATE_OFFER`
 };
 
 export const ActionCreator = {
@@ -36,5 +37,9 @@ export const ActionCreator = {
   getUserInfo: (data) => ({
     type: ActionType.GET_USER_INFO,
     payload: data,
-  })
+  }),
+  updateOffer: (newOffer) => ({
+    type: ActionType.UPDATE_OFFER,
+    payload: newOffer,
+  }),
 };

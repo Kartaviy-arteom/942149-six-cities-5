@@ -78,3 +78,16 @@ export const adaptUserInfo = (data) => {
   return adaptedInfo;
 };
 
+export const updateItem = (offers, update) => {
+  const index = offers.findIndex((item) => item.offerId === update.offerId);
+
+  if (index === -1) {
+    return offers;
+  }
+
+  return [
+    ...offers.slice(0, index),
+    update,
+    ...offers.slice(index + 1)
+  ];
+};

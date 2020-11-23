@@ -18,7 +18,7 @@ const withActiveFlag = (Component) => {
 
     render() {
       return (
-        <Component {...this.props} isActive={this.state.isActive} onActiveChange={this._handleActiveChange}/>
+        <Component {...this.props} isActive={this.state.isActive} onActiveChange={this._handleActiveChange} />
       );
     }
   };

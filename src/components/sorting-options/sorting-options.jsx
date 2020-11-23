@@ -17,7 +17,7 @@ const SortingOptions = (props) => {
     props.changeSortType(evt.target.textContent);
   };
 
-  const {sortType, onActiveChange, isActive} = props;
+  const {sortType, onActiveChange, isActive, setInitialFlagValue} = props;
   return (
     <form className="places__sorting" action="#" method="get" onClick={onActiveChange}>
       <span className="places__sorting-caption">Sort by</span>

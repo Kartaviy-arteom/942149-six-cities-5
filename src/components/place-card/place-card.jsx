@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PlaceCardProp from "./place-card.prop";
 import {Link} from "react-router-dom";
 import {MAX_RATING_VALUE} from "../../consts";
+import BookmarkButton from "../bookmark-button/bookmark-button";
 
 const PlaceCard = ({onHover, offer, className}) => {
 
@@ -28,12 +29,7 @@ const PlaceCard = ({onHover, offer, className}) => {
             <b className="place-card__price-value">&euro;{costValue}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton offer={offer} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

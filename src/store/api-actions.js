@@ -22,3 +22,9 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
 );
+
+export const changeOfferStatus = (hotelId, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${hotelId}/${status}`)
+  .then(({data}) => adaptOfferToClient(data))
+  .then((offer) => dispatch(ActionCreator.updateOffer(offer)))
+);
