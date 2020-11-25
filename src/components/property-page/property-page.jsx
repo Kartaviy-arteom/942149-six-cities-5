@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {Match} from "react-router-dom";
+import {fetchOffer, getOfferComments} from "../../store/api-actions";
 import placeCardProp from "../place-card/place-card.prop";
 import Header from "../header/header";
 import CommentForm from "../comment-form/comment-form";
@@ -11,8 +14,10 @@ import {MAX_RATING_VALUE} from "../../consts";
 const MAX_PHOTOS_COUNT = 6;
 
 const PropertyPage = (props) => {
-  const {offer, reviews, nearbyOffers} = props;
-  const {isPremium, photoPaths, costValue, ratingValue, title, type, bedroomsCount, maxGuestsCount, owner, description, reviewIds, amenities} = offer;
+  const {getOffer} = props;
+  getOffer(Match);
+
+  const {isPremium, photoPaths, costValue, ratingValue, title, type, bedroomsCount, maxGuestsCount, owner, description, reviewIds, amenities} = props.activeOffer;
   const {avatarPath, ownerName, isSuper} = owner;
   const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
   return (
@@ -25,7 +30,7 @@ const PropertyPage = (props) => {
 
               {photoPaths.map((el, index) => (
                 <div className="property__image-wrapper" key={`${el}-${index}`}>
-                  <img className="property__image" src={`/${el}`} alt="Photo studio" />
+                  <img className="property__image" src={`${el}`} alt="Photo studio" />
                 </div>
               )).slice(0, Math.min(photoPaths.length, MAX_PHOTOS_COUNT))}
 
@@ -84,7 +89,7 @@ const PropertyPage = (props) => {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className={`property__avatar-wrapper ${isSuper ? `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
-                    <img className="property__avatar user__avatar" src={avatarPath} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={`/${avatarPath}`} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
                     {ownerName}
@@ -97,8 +102,8 @@ const PropertyPage = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewIds.length}</span></h2>
-                <ReviewsList reviewIds={reviewIds} reviews={reviews}/>
+                {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewIds.length}</span></h2> */}
+                {/* <ReviewsList reviewIds={reviewIds} reviews={reviews}/> */}
                 <CommentForm />
               </section>
             </div>
@@ -120,7 +125,7 @@ const PropertyPage = (props) => {
 };
 
 PropertyPage.propTypes = {
-  offer: PropTypes.shape(placeCardProp).isRequired,
+  activeOffer: PropTypes.shape(placeCardProp).isRequired,
   reviews: PropTypes.objectOf(
       PropTypes.shape({
         avatarPath: PropTypes.string.isRequired,
@@ -131,6 +136,17 @@ PropertyPage.propTypes = {
       })
   ).isRequired,
   nearbyOffers: PropTypes.array,
+  getOffer: PropTypes.func.isRequired
 };
 
-export default PropertyPage;
+const mapStateToProps = (state) => ({
+  activeOffer: state.APLICATION_PROCESS.activeOffer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getOffer(hotelId) {
+    dispatch(fetchOffer(hotelId));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PropertyPage);

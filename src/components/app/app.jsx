@@ -10,7 +10,7 @@ import FavoritesPage from "../favorites-page/favorites-page";
 import PropertyPage from "../property-page/property-page";
 
 const App = (props) => {
-  const {placesFoundedCount, offers, reviews} = props;
+  const {placesFoundedCount, offers} = props;
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -24,7 +24,7 @@ const App = (props) => {
           );
         }}/>
         <Route path="/offer/:id?" exact >
-          <PropertyPage offer = {offers[0]} reviews = {reviews} nearbyOffers = {offers.filter((offer) => offer.city === offers[0].city)} />
+          <PropertyPage />
         </Route>
         <Route>
           <MainPage placesFoundedCount = {placesFoundedCount} offers = {offers} />

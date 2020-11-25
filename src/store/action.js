@@ -6,7 +6,9 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   GET_USER_INFO: `GET_USER_INFO`,
-  UPDATE_OFFER: `UPDATE_OFFER`
+  UPDATE_OFFER: `UPDATE_OFFER`,
+  DOWNLOAD_OFFER: `DOWNLOAD_OFFER`,
+  GET_COMMENTS: `GET_COMMENTS`
 };
 
 export const ActionCreator = {
@@ -41,5 +43,13 @@ export const ActionCreator = {
   updateOffer: (newOffer) => ({
     type: ActionType.UPDATE_OFFER,
     payload: newOffer,
+  }),
+  downloadOffer: (offer) => ({
+    type: ActionType.DOWNLOAD_OFFER,
+    payload: offer
+  }),
+  getOfferComments: (offer) => ({
+    type: ActionType.GET_COMMENTS,
+    payload: offer
   }),
 };

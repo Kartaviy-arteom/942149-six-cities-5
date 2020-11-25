@@ -7,7 +7,7 @@ import BookmarkButton from "../bookmark-button/bookmark-button";
 
 const PlaceCard = ({onHover, offer, className}) => {
 
-  const {isPremium, previewImage, costValue, ratingValue, title, type, isFavorite} = offer;
+  const {isPremium, previewImage, costValue, ratingValue, title, type, offerId} = offer;
   const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
   return (
     <article className={`${className} place-card`}
@@ -17,7 +17,7 @@ const PlaceCard = ({onHover, offer, className}) => {
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="/offer">
+        <Link to={`/offer/${offerId}`}>
           <div>
             <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
           </div>
@@ -38,7 +38,7 @@ const PlaceCard = ({onHover, offer, className}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="/offer">
+          <Link to={`/offer/${offerId}`}>
             <span>{title}</span>
           </Link>
         </h2>

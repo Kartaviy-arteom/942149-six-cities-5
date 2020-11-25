@@ -5,8 +5,8 @@ import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 const PinPath = {
-  DEFAULT: `img/pin.svg`,
-  ACTIVE: `img/pin-active.svg`
+  DEFAULT: `/img/pin.svg`,
+  ACTIVE: `/img/pin-active.svg`
 };
 
 
