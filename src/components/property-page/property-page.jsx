@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Match} from "react-router-dom";
-import {fetchOffer, getOfferComments} from "../../store/api-actions";
+import {fetchOffer, getOfferComments, getNerbyOffers} from "../../store/api-actions";
 import placeCardProp from "../place-card/place-card.prop";
 import Header from "../header/header";
 import CommentForm from "../comment-form/comment-form";
@@ -15,7 +15,7 @@ const MAX_PHOTOS_COUNT = 6;
 
 const PropertyPage = (props) => {
   const {getOffer} = props;
-  getOffer(Match);
+  getOffer(props.match.params.id);
 
   const {isPremium, photoPaths, costValue, ratingValue, title, type, bedroomsCount, maxGuestsCount, owner, description, reviewIds, amenities} = props.activeOffer;
   const {avatarPath, ownerName, isSuper} = owner;
@@ -147,6 +147,9 @@ const mapDispatchToProps = (dispatch) => ({
   getOffer(hotelId) {
     dispatch(fetchOffer(hotelId));
   },
+  getNerbyOffers(hotelId) {
+    dispatch(getNerbyOffers(hotelId));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PropertyPage);
