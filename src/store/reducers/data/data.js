@@ -13,6 +13,10 @@ const getData = (state = initialState, action) => {
       });
     case ActionType.UPDATE_OFFER:
       return Object.assign({}, state, {offers: updateItem(state.offers, action.payload)});
+    case ActionType.GET_NERBY_OFFERS:
+      return Object.assign({}, state, {
+        nerbyOffers: action.payload
+      });
   }
 
   return state;
