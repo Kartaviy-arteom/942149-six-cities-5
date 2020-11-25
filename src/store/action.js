@@ -52,4 +52,8 @@ export const ActionCreator = {
     type: ActionType.GET_COMMENTS,
     payload: offer
   }),
+  getNerbyOffers: (offers) => ({
+    type: ActionType.GET_NERBY_OFFERS,
+    payload: offers
+  }),
 };
