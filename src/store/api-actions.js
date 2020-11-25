@@ -39,3 +39,8 @@ export const changeOfferStatus = (hotelId, status) => (dispatch, _getState, api)
   .then(({data}) => adaptOfferToClient(data))
   .then((offer) => dispatch(ActionCreator.updateOffer(offer)))
 );
+
+export const getNerbyOffers = (id) => (dispatch, _getState, api) =>
+  api.get(`/hotels/${id}/nearby`)
+  .then(({ data }) => data.map(adaptOfferToClient))
+  .then((offers) => dispatch(ActionCreator.loadOffers(offers)));
