@@ -23,8 +23,7 @@ const App = (props) => {
             <FavoritesPage offers = {offers}/>
           );
         }}/>
-        <Route path="/offer/:id?" exact >
-          <PropertyPage />
+        <Route path="/offer/:id?" exact component={PropertyPage}></Route>
         </Route>
         <Route>
           <MainPage placesFoundedCount = {placesFoundedCount} offers = {offers} />
