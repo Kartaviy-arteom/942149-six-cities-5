@@ -1,7 +1,7 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {Match} from "react-router-dom";
+import {render} from "react-dom";
 import {fetchOffer, getOfferComments, getNerbyOffers} from "../../store/api-actions";
 import placeCardProp from "../place-card/place-card.prop";
 import Header from "../header/header";
@@ -10,14 +10,24 @@ import ReviewsList from "../reviews-list/reviews-list";
 import Map from "../map/map";
 import PlacesList from "../places-list/places-list";
 import {MAX_RATING_VALUE} from "../../consts";
+import BookmarkButton from "../bookmark-button/bookmark-button";
 
 const MAX_PHOTOS_COUNT = 6;
-
 const PropertyPage = (props) => {
-  const {getOffer} = props;
-  getOffer(props.match.params.id);
 
-  const {isPremium, photoPaths, costValue, ratingValue, title, type, bedroomsCount, maxGuestsCount, owner, description, reviewIds, amenities} = props.activeOffer;
+  const offerId = props.match.params.id;
+
+  props.getOffer(offerId);
+  props.getNerbyOffers(offerId);
+  props.getOfferComments(offerId);
+
+  if (!props.activeOffer || !props.nearbyOffers|| !props.comments) {
+    return (
+      <div className="loading">Loading ...</div>
+    );
+  }
+  const {nearbyOffers, activeOffer, comments} = props;
+  const {isPremium, photoPaths, costValue, ratingValue, title, type, bedroomsCount, maxGuestsCount, owner, description, amenities} = activeOffer;
   const {avatarPath, ownerName, isSuper} = owner;
   const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
   return (
@@ -45,12 +55,7 @@ const PropertyPage = (props) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton offer={activeOffer} />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -102,14 +107,14 @@ const PropertyPage = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewIds.length}</span></h2> */}
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                 {/* <ReviewsList reviewIds={reviewIds} reviews={reviews}/> */}
                 <CommentForm />
               </section>
             </div>
           </div>
           <section className="property__map map">
-            <Map validOffers={nearbyOffers}/>
+            <Map validOffers={[activeOffer, ...nearbyOffers.slice(0, 3)]}/>
           </section>
         </section>
 
@@ -122,10 +127,11 @@ const PropertyPage = (props) => {
       </main>
     </div>
   );
+
 };
 
 PropertyPage.propTypes = {
-  activeOffer: PropTypes.shape(placeCardProp).isRequired,
+  activeOffer: PropTypes.shape(placeCardProp),
   reviews: PropTypes.objectOf(
       PropTypes.shape({
         avatarPath: PropTypes.string.isRequired,
@@ -135,12 +141,15 @@ PropertyPage.propTypes = {
         reviewText: PropTypes.string.isRequired,
       })
   ).isRequired,
+  match: PropTypes.object.isRequired,
   nearbyOffers: PropTypes.array,
   getOffer: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   activeOffer: state.APLICATION_PROCESS.activeOffer,
+  nearbyOffers: state.DATA.nerbyOffers,
+  comments: state.APLICATION_PROCESS.activeOfferComments
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -149,6 +158,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getNerbyOffers(hotelId) {
     dispatch(getNerbyOffers(hotelId));
+  },
+  getOfferComments(hotelId) {
+    dispatch(getOfferComments(hotelId));
   }
 });
 

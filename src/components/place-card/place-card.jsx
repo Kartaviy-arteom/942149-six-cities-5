@@ -11,9 +11,10 @@ const PlaceCard = ({onHover, offer, className}) => {
   const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
   return (
     <article className={`${className} place-card`}
-      onMouseEnter={() => {
+      onMouseEnter={onHover ? () => {
         onHover(offer);
-      }}
+      } : undefined
+      }
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -50,7 +51,7 @@ const PlaceCard = ({onHover, offer, className}) => {
 
 
 PlaceCard.propTypes = {
-  onHover: PropTypes.func.isRequired,
+  onHover: PropTypes.func,
   offer: PlaceCardProp,
   className: PropTypes.string
 };

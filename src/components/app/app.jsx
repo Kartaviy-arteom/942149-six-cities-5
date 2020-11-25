@@ -24,7 +24,6 @@ const App = (props) => {
           );
         }}/>
         <Route path="/offer/:id?" exact component={PropertyPage}></Route>
-        </Route>
         <Route>
           <MainPage placesFoundedCount = {placesFoundedCount} offers = {offers} />
         </Route>

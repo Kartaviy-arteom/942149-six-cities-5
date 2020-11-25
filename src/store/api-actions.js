@@ -17,7 +17,7 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
 
 export const getOfferComments = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
-    .then((comments) => dispatch(ActionCreator.getOfferComments(comments)))
+    .then(({data}) => dispatch(ActionCreator.getOfferComments(data)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -42,5 +42,5 @@ export const changeOfferStatus = (hotelId, status) => (dispatch, _getState, api)
 
 export const getNerbyOffers = (id) => (dispatch, _getState, api) =>
   api.get(`/hotels/${id}/nearby`)
-  .then(({ data }) => data.map(adaptOfferToClient))
-  .then((offers) => dispatch(ActionCreator.loadOffers(offers)));
+  .then(({data}) => data.map(adaptOfferToClient))
+  .then((offers) => dispatch(ActionCreator.getNerbyOffers(offers)));
