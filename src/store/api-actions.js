@@ -1,6 +1,5 @@
 import {ActionCreator} from "./action";
-import {adaptOfferToClient} from "../utils";
-import {adaptUserInfo} from "../utils";
+import {adaptOfferToClient, adaptCommentToClient, adaptUserInfo} from "../utils";
 import {AuthorizationStatus} from "../consts";
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
@@ -17,7 +16,8 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
 
 export const getOfferComments = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
-    .then(({data}) => dispatch(ActionCreator.getOfferComments(data)))
+    .then(({data}) => data.map(adaptCommentToClient))
+    .then((data) => dispatch(ActionCreator.getOfferComments(data)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (

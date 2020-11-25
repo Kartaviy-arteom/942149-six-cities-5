@@ -16,17 +16,27 @@ const MAX_PHOTOS_COUNT = 6;
 class PropertyPage extends PureComponent {
   constructor(props) {
     super(props);
-    this._offerId = this.props.match.params.id;
+    this.state = {};
   }
 
   componentDidMount() {
-    this.props.getOffer(this._offerId);
-    this.props.getNerbyOffers(this._offerId);
-    this.props.getOfferComments(this._offerId);
+    const currentOfferId = this.props.match.params.id;
+    this.setState({
+      _offerId: currentOfferId
+    });
   }
 
-  componentDidUpdate() {
-    this.props.getOffer(this._offerId);
+  componentDidUpdate(precProps, prevState) {
+    const currentOfferId = this.props.match.params.id;
+
+    if (currentOfferId !== prevState._offerId) {
+      this.setState({
+        _offerId: currentOfferId
+      });
+      this.props.getOffer(currentOfferId);
+      this.props.getNerbyOffers(currentOfferId);
+      this.props.getOfferComments(currentOfferId);
+    }
   }
 
   render() {
@@ -64,7 +74,7 @@ class PropertyPage extends PureComponent {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <BookmarkButton offer={activeOffer} />
+                  {/* <BookmarkButton offer={activeOffer} /> */}
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
@@ -117,7 +127,7 @@ class PropertyPage extends PureComponent {
                 </div>
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                  {/* <ReviewsList reviewIds={reviewIds} reviews={reviews}/> */}
+                  <ReviewsList reviews={comments}/>
                   <CommentForm />
                 </section>
               </div>
@@ -137,11 +147,11 @@ class PropertyPage extends PureComponent {
       </div>
     );
   }
-};
+}
 
 PropertyPage.propTypes = {
   activeOffer: PropTypes.shape(placeCardProp),
-  reviews: PropTypes.objectOf(
+  comments: PropTypes.arrayOf(
       PropTypes.shape({
         avatarPath: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -149,7 +159,7 @@ PropertyPage.propTypes = {
         date: PropTypes.string.isRequired,
         reviewText: PropTypes.string.isRequired,
       })
-  ).isRequired,
+  ),
   match: PropTypes.object.isRequired,
   nearbyOffers: PropTypes.array,
   getOffer: PropTypes.func.isRequired
