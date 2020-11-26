@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {render} from "react-dom";
-import {fetchOffer, getOfferComments, getNerbyOffers} from "../../store/api-actions";
+import {fetchOffer, getOfferComments, getNerbyOffers, changeOfferStatus} from "../../store/api-actions";
 import placeCardProp from "../place-card/place-card.prop";
 import Header from "../header/header";
 import CommentForm from "../comment-form/comment-form";
@@ -36,6 +36,14 @@ class PropertyPage extends PureComponent {
       this.props.getOffer(currentOfferId);
       this.props.getNerbyOffers(currentOfferId);
       this.props.getOfferComments(currentOfferId);
+    }
+  }
+  
+  _changeFavoriteOfferStatus() {
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      this.props.updateOffer(this.props.match.params.id, Number(!isFavorite));
+    } else {
+      this.props.redirectToRoute(`/login`);
     }
   }
 
@@ -74,7 +82,7 @@ class PropertyPage extends PureComponent {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <BookmarkButton offer={activeOffer} parentClassPrefix={`property`} />
+                  <BookmarkButton offer={activeOffer} parentClassPrefix={`property`} handleClick={this._changeFavoriteOfferStatus} />
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
@@ -180,6 +188,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getOfferComments(hotelId) {
     dispatch(getOfferComments(hotelId));
+  },
+  updateOffer(hotelId, status) {
+    dispatch(changeOfferStatus(hotelId, status));
+  },
+  redirectToRoute(url) {
+    dispatch(ActionCreator.redirectToRoute(url));
   }
 });
 
