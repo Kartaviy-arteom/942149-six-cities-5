@@ -3,25 +3,23 @@ import PropTypes from "prop-types";
 import PlaceCardProp from "../place-card/place-card.prop";
 import {connect} from "react-redux";
 import {changeOfferStatus} from "../../store/api-actions";
-import {withActiveFlag} from "../../hocs/with-active-flag/with-active-flag";
 import {AuthorizationStatus} from "../../consts";
 import {ActionCreator} from "../../store/action";
 
-const BookmarkButton = ({offer, onActiveChange, isActive, updateOffer, authorizationStatus, redirectToRoute}) => {
+const BookmarkButton = ({offer, updateOffer, authorizationStatus, redirectToRoute, parentClassPrefix}) => {
   const {isFavorite} = offer;
 
   const onClick = (evt) => {
     evt.preventDefault();
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      onActiveChange();
-      updateOffer(offer.offerId, Number(isActive));
+      updateOffer(offer.offerId, Number(!isActive));
     } else {
       redirectToRoute(`/login`);
     }
   };
 
   return (
-    <button className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`} type="button" onClick={onClick}>
+    <button className={`${parentClassPrefix}__bookmark-button button ${isFavorite ? `${parentClassPrefix}__bookmark-button--active` : ``}`} type="button" onClick={onClick}>
       <svg className="place-card__bookmark-icon" width="18" height="19">
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
@@ -52,4 +50,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default withActiveFlag(connect(mapStateToProps, mapDispatchToProps)(BookmarkButton));
+export default connect(mapStateToProps, mapDispatchToProps)(BookmarkButton);
