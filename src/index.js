@@ -11,7 +11,6 @@ import App from "./components/app/app";
 import reviews from "./mocks/reviews";
 import {fetchOffersList, checkAuth} from "./store/api-actions";
 
-const PLACES_FOUNDED_COUNT = 3450;
 
 const rootElement = document.querySelector(`#root`);
 
@@ -32,10 +31,7 @@ Promise.all([
 
   ReactDOM.render(
       <Provider store = {store}>
-        <App
-          placesFoundedCount = {PLACES_FOUNDED_COUNT}
-          reviews = {reviews}
-        />,
+        <App reviews = {reviews}/>,
       </Provider>,
       rootElement
   );
