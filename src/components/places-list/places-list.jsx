@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {SortTypes} from "../../consts";
 import {withActiveItem} from "../../hocs/with-active-item/with-active-item";
 
-const PlacesList = ({offers, className, childClassName, sortType, onHover}) => {
+const PlacesList = ({offers, className, childClassName, sortType, onHover, placeCardBookmarkHandler}) => {
 
   let sortedOffers = offers.slice();
 
@@ -35,7 +35,7 @@ const PlacesList = ({offers, className, childClassName, sortType, onHover}) => {
   return (
     <div className={`${className} places__list`}>
       {sortedOffers.map((el, index) => (
-        <PlaceCard className={childClassName} offer = {el} onHover = {onHover} key = {`${el.title}-${index}`}/>
+        <PlaceCard className={childClassName} offer = {el} onHover = {onHover} placeCardBookmarkHandler={placeCardBookmarkHandler} key = {`${el.title}-${index}`}/>
       ))}
     </div>
   );
@@ -47,7 +47,8 @@ PlacesList.propTypes = {
   childClassName: PropTypes.string,
   sortType: PropTypes.string.isRequired,
   onHover: PropTypes.func,
-  onItemActive: PropTypes.func.isRequired
+  onItemActive: PropTypes.func.isRequired,
+  placeCardBookmarkHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

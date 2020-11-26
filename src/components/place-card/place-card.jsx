@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {MAX_RATING_VALUE} from "../../consts";
 import BookmarkButton from "../bookmark-button/bookmark-button";
 
-const PlaceCard = ({onHover, offer, className}) => {
+const PlaceCard = ({onHover, offer, className, placeCardBookmarkHandler}) => {
 
   const {isPremium, previewImage, costValue, ratingValue, title, type, offerId} = offer;
   const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
@@ -30,7 +30,7 @@ const PlaceCard = ({onHover, offer, className}) => {
             <b className="place-card__price-value">&euro;{costValue}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton offer={offer} parentClassPrefix={`place-card`} />
+          <BookmarkButton offer={offer} parentClassPrefix={`place-card`} handleClick={() => placeCardBookmarkHandler(offer)}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -53,7 +53,8 @@ const PlaceCard = ({onHover, offer, className}) => {
 PlaceCard.propTypes = {
   onHover: PropTypes.func,
   offer: PlaceCardProp,
-  className: PropTypes.string
+  className: PropTypes.string,
+  placeCardBookmarkHandler: PropTypes.func.isRequired
 };
 
 export default PlaceCard;

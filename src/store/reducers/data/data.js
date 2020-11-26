@@ -3,6 +3,8 @@ import {updateItem} from "../../../utils";
 
 const initialState = {
   offers: [],
+  currentOffer: null,
+  nerbyOffers: [],
 };
 
 const getData = (state = initialState, action) => {
@@ -12,11 +14,17 @@ const getData = (state = initialState, action) => {
         offers: action.payload,
       });
     case ActionType.UPDATE_OFFER:
-      return Object.assign({}, state, {offers: updateItem(state.offers, action.payload)});
+      return Object.assign({}, state, {
+        offers: updateItem(state.offers, action.payload),
+        currentOffer: updateItem([state.currentOffer], action.payload)[0],
+        nerbyOffers: updateItem(state.nerbyOffers, action.payload),
+      });
     case ActionType.GET_NERBY_OFFERS:
       return Object.assign({}, state, {
         nerbyOffers: action.payload
       });
+    case ActionType.DOWNLOAD_OFFER:
+      return Object.assign({}, state, {currentOffer: action.payload});
   }
 
   return state;

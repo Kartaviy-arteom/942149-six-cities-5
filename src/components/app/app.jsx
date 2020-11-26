@@ -33,9 +33,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  placesFoundedCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
-  reviews: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

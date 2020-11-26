@@ -79,7 +79,7 @@ export const adaptUserInfo = (data) => {
 };
 
 export const updateItem = (offers, update) => {
-  const index = offers.findIndex((item) => item.offerId === update.offerId);
+  const index = offers.findIndex((item) => item && item.offerId === update.offerId);
 
   if (index === -1) {
     return offers;

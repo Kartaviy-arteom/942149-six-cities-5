@@ -7,6 +7,7 @@ const initialState = {
   cities: CITIES,
   activeCity: CITIES[0],
   sortType: SortTypes.POPULAR,
+  activeOffer: null,
 };
 
 const applicationProcess = (state = initialState, action) => {
@@ -16,8 +17,6 @@ const applicationProcess = (state = initialState, action) => {
     case ActionType.CHANGE_SORT_TYPE:
       return Object.assign({}, state, {sortType: action.payload});
     case ActionType.GET_HOVERED_OFFER:
-      return Object.assign({}, state, {activeOffer: action.payload});
-    case ActionType.DOWNLOAD_OFFER:
       return Object.assign({}, state, {activeOffer: action.payload});
     case ActionType.GET_COMMENTS:
       return Object.assign({}, state, {activeOfferComments: action.payload});

@@ -18,9 +18,9 @@ class Map extends React.Component {
   }
 
   initMap() {
-    this._offers = this.props.validOffers;
-    this._city = this._offers[0].cityCords;
-    this._zoom = this._offers[0].cityZoom;
+    this._offers = this.props.activeOffer ? [this.props.activeOffer, ...this.props.validOffers] : this.props.validOffers;
+    this._city = this.props.activeOffer ? this.props.activeOffer.cords : this._offers[0].cityCords;
+    this._zoom = this.props.activeOffer ? this.props.activeOffer.offerZoom : this._offers[0].cityZoom;
     this.map = leaflet.map(`map`, {
       center: this._city,
       zoom: this._zoom,
@@ -60,7 +60,7 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
-    this._offers = this.props.validOffers;
+    this._offers = this.props.activeOffer ? [this.props.activeOffer, ...this.props.validOffers] : this.props.validOffers;
     let targetCords;
     let zoom;
     if (this.props.activeOffer) {
@@ -75,7 +75,7 @@ class Map extends React.Component {
     });
     this.map.flyTo(targetCords, zoom);
     this._pins = [];
-    this._offers = this.props.validOffers;
+
 
     this._setPins();
   }
@@ -94,7 +94,6 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeOffer: state.APLICATION_PROCESS.activeOffer,
   activeCity: state.APLICATION_PROCESS.activeCity
 });
 

@@ -1,7 +1,6 @@
-import React, { PureComponent } from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {render} from "react-dom";
 import {fetchOffer, getOfferComments, getNerbyOffers, changeOfferStatus} from "../../store/api-actions";
 import placeCardProp from "../place-card/place-card.prop";
 import Header from "../header/header";
@@ -11,12 +10,15 @@ import Map from "../map/map";
 import PlacesList from "../places-list/places-list";
 import {MAX_RATING_VALUE} from "../../consts";
 import BookmarkButton from "../bookmark-button/bookmark-button";
+import {AuthorizationStatus} from "../../consts";
+import {ActionCreator} from "../../store/action";
 
 const MAX_PHOTOS_COUNT = 6;
 class PropertyPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
+    this._changeFavoriteOfferStatus = this._changeFavoriteOfferStatus.bind(this);
   }
 
   componentDidMount() {
@@ -38,17 +40,17 @@ class PropertyPage extends PureComponent {
       this.props.getOfferComments(currentOfferId);
     }
   }
-  
-  _changeFavoriteOfferStatus() {
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      this.props.updateOffer(this.props.match.params.id, Number(!isFavorite));
+
+  _changeFavoriteOfferStatus(offer) {
+    if (this.props.authorizationStatus === AuthorizationStatus.AUTH) {
+      this.props.updateOffer(offer.offerId, Number(!offer.isFavorite));
     } else {
       this.props.redirectToRoute(`/login`);
     }
   }
 
   render() {
-    if (!this.props.activeOffer || !this.props.nearbyOffers|| !this.props.comments) {
+    if (!this.props.activeOffer || !this.props.nearbyOffers || !this.props.comments) {
       return (
         <div className="loading">Loading ...</div>
       );
@@ -82,7 +84,7 @@ class PropertyPage extends PureComponent {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <BookmarkButton offer={activeOffer} parentClassPrefix={`property`} handleClick={this._changeFavoriteOfferStatus} />
+                  <BookmarkButton offer={activeOffer} parentClassPrefix={`property`} handleClick={() => this._changeFavoriteOfferStatus(this.props.activeOffer)} />
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
@@ -141,14 +143,14 @@ class PropertyPage extends PureComponent {
               </div>
             </div>
             <section className="property__map map">
-              <Map validOffers={[activeOffer, ...nearbyOffers.slice(0, 3)]}/>
+              <Map validOffers={nearbyOffers.slice(0, 3)} activeOffer={activeOffer}/>
             </section>
           </section>
 
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <PlacesList offers={nearbyOffers} className={`near-places__list`} childClassName={`near-places__card`}/>
+              <PlacesList offers={nearbyOffers} className={`near-places__list`} childClassName={`near-places__card`} placeCardBookmarkHandler={this._changeFavoriteOfferStatus}/>
             </section>
           </div>
         </main>
@@ -170,13 +172,19 @@ PropertyPage.propTypes = {
   ),
   match: PropTypes.object.isRequired,
   nearbyOffers: PropTypes.array,
-  getOffer: PropTypes.func.isRequired
+  getOffer: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  updateOffer: PropTypes.func.isRequired,
+  redirectToRoute: PropTypes.func.isRequired,
+  getNerbyOffers: PropTypes.func.isRequired,
+  getOfferComments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  activeOffer: state.APLICATION_PROCESS.activeOffer,
+  activeOffer: state.DATA.currentOffer,
   nearbyOffers: state.DATA.nerbyOffers,
-  comments: state.APLICATION_PROCESS.activeOfferComments
+  comments: state.APLICATION_PROCESS.activeOfferComments,
+  authorizationStatus: state.USER.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({

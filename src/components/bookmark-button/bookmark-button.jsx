@@ -3,19 +3,14 @@ import PropTypes from "prop-types";
 import PlaceCardProp from "../place-card/place-card.prop";
 import {connect} from "react-redux";
 import {changeOfferStatus} from "../../store/api-actions";
-import {AuthorizationStatus} from "../../consts";
 import {ActionCreator} from "../../store/action";
 
-const BookmarkButton = ({offer, updateOffer, authorizationStatus, redirectToRoute, parentClassPrefix}) => {
+const BookmarkButton = ({offer, redirectToRoute, parentClassPrefix, handleClick}) => {
   const {isFavorite} = offer;
 
   const onClick = (evt) => {
     evt.preventDefault();
-    if (authorizationStatus === AuthorizationStatus.AUTH) {
-      updateOffer(offer.offerId, Number(!isActive));
-    } else {
-      redirectToRoute(`/login`);
-    }
+    handleClick();
   };
 
   return (
