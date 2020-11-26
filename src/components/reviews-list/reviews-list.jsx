@@ -9,7 +9,7 @@ const ReviewsList = ({reviews}) => {
   return (
     <ul className="reviews__list">
       {reviews.slice(0, Math.min(reviews.length, MAX_REVIEWS_COUNT))
-      // .sort((a, b) => ((new Date(b.date)) - (new Date(a.date))))
+      .sort((a, b) => ((new Date(b.date)) - (new Date(a.date))))
       .map((el, index) =>
         <ReviewsItem review = {el} key={`${el}-${index}`}/>
       )}
