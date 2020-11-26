@@ -20,7 +20,7 @@ const BookmarkButton = ({offer, updateOffer, authorizationStatus, redirectToRout
 
   return (
     <button className={`${parentClassPrefix}__bookmark-button button ${isFavorite ? `${parentClassPrefix}__bookmark-button--active` : ``}`} type="button" onClick={onClick}>
-      <svg className="${parentClassPrefix}__bookmark-icon" width="18" height="19">
+      <svg className=`${parentClassPrefix}__bookmark-icon` width="18" height="19">
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
       <span className="visually-hidden">To bookmarks</span>
