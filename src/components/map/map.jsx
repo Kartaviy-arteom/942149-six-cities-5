@@ -4,19 +4,9 @@ import {connect} from "react-redux";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const CityCenterCord = {
-  Paris: [48.85661, 2.351499],
-  Cologne: [50.938361, 	6.959974],
-  Brussels: [50.846557, 4.351697],
-  Amsterdam: [52.37454, 4.897976],
-  Hamburg: [53.550341, 10.000654],
-  Dusseldorf: [51.225402, 6.776314]
-};
-
-const ZOOM_LEVEL = 12;
 const PinPath = {
-  DEFAULT: `img/pin.svg`,
-  ACTIVE: `img/pin-active.svg`
+  DEFAULT: `/img/pin.svg`,
+  ACTIVE: `/img/pin-active.svg`
 };
 
 
@@ -24,16 +14,16 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
-    this._zoom = 12;
     this._pins = [];
   }
 
   initMap() {
-    this._city = CityCenterCord[this.props.activeCity] || CityCenterCord.Amsterdam;
-    this._offers = this.props.validOffers;
+    this._offers = this.props.activeOffer ? [this.props.activeOffer, ...this.props.validOffers] : this.props.validOffers;
+    this._city = this.props.activeOffer ? this.props.activeOffer.cords : this._offers[0].cityCords;
+    this._zoom = this.props.activeOffer ? this.props.activeOffer.offerZoom : this._offers[0].cityZoom;
     this.map = leaflet.map(`map`, {
       center: this._city,
-      zoom: ZOOM_LEVEL,
+      zoom: this._zoom,
       zoomControl: false,
       marker: true
     });
@@ -70,21 +60,22 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
+    this._offers = this.props.activeOffer ? [this.props.activeOffer, ...this.props.validOffers] : this.props.validOffers;
     let targetCords;
     let zoom;
     if (this.props.activeOffer) {
       zoom = this.props.activeOffer.offerZoom;
       targetCords = this.props.activeOffer.cords;
     } else {
-      zoom = ZOOM_LEVEL;
-      targetCords = CityCenterCord[this.props.activeCity];
+      zoom = this._zoom;
+      targetCords = this._offers[0].cityCords;
     }
     this._pins.forEach((el) => {
       this.map.removeLayer(el);
     });
     this.map.flyTo(targetCords, zoom);
     this._pins = [];
-    this._offers = this.props.validOffers;
+
 
     this._setPins();
   }
@@ -103,7 +94,6 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeOffer: state.APLICATION_PROCESS.activeOffer,
   activeCity: state.APLICATION_PROCESS.activeCity
 });
 

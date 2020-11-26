@@ -4,13 +4,9 @@ import {createSelector} from "reselect";
 import PlaceCard from "../place-card/place-card";
 import {connect} from "react-redux";
 import {SortTypes} from "../../consts";
-import {ActionCreator} from "../../store/action";
 import {withActiveItem} from "../../hocs/with-active-item/with-active-item";
 
-const PlacesList = ({offers, className, childClassName, sortType, getHoveredOffer}) => {
-  const onHover = (currentCard) => {
-    getHoveredOffer(currentCard);
-  };
+const PlacesList = ({offers, className, childClassName, sortType, onHover, placeCardBookmarkHandler}) => {
 
   let sortedOffers = offers.slice();
 
@@ -39,7 +35,7 @@ const PlacesList = ({offers, className, childClassName, sortType, getHoveredOffe
   return (
     <div className={`${className} places__list`}>
       {sortedOffers.map((el, index) => (
-        <PlaceCard className={childClassName} offer = {el} onHover = {onHover} key = {`${el.title}-${index}`}/>
+        <PlaceCard className={childClassName} offer = {el} onHover = {onHover} placeCardBookmarkHandler={placeCardBookmarkHandler} key = {`${el.title}-${index}`}/>
       ))}
     </div>
   );
@@ -50,16 +46,13 @@ PlacesList.propTypes = {
   className: PropTypes.string,
   childClassName: PropTypes.string,
   sortType: PropTypes.string.isRequired,
-  getHoveredOffer: PropTypes.func.isRequired,
-  onItemActive: PropTypes.func.isRequired
+  onHover: PropTypes.func,
+  onItemActive: PropTypes.func.isRequired,
+  placeCardBookmarkHandler: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  getHoveredOffer: (offer) => dispatch(ActionCreator.getHoveredOffer(offer))
-});
 
 const mapStateToProps = (state) => ({
   sortType: state.APLICATION_PROCESS.sortType
 });
 
-export default withActiveItem(connect(mapStateToProps, mapDispatchToProps)(PlacesList));
+export default withActiveItem(connect(mapStateToProps)(PlacesList));

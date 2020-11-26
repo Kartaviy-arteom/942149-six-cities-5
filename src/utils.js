@@ -61,3 +61,33 @@ export const adaptCommentToClient = (comment) => {
 
   return adaptedComment;
 };
+
+export const adaptUserInfo = (data) => {
+  const adaptedInfo = Object.assign(
+      {},
+      data,
+      {
+        avatarUrl: data.avatar_url,
+        isPro: data.is_pro
+      }
+  );
+
+  delete adaptedInfo.avatar_url;
+  delete adaptedInfo.is_pro;
+
+  return adaptedInfo;
+};
+
+export const updateItem = (offers, update) => {
+  const index = offers.findIndex((item) => item && item.offerId === update.offerId);
+
+  if (index === -1) {
+    return offers;
+  }
+
+  return [
+    ...offers.slice(0, index),
+    update,
+    ...offers.slice(index + 1)
+  ];
+};

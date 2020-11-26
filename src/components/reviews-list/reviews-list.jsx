@@ -5,19 +5,20 @@ import ReviewsItem from "../reviews-item/reviews-item";
 
 const MAX_REVIEWS_COUNT = 10;
 
-const ReviewsList = ({reviewIds, reviews}) => {
+const ReviewsList = ({reviews}) => {
   return (
     <ul className="reviews__list">
-      {reviewIds.slice(0, Math.min(reviewIds.length, MAX_REVIEWS_COUNT)).map((el, index) =>
-        <ReviewsItem review = {reviews[el]} key={`${el}-${index}`}/>
+      {reviews.slice(0, Math.min(reviews.length, MAX_REVIEWS_COUNT))
+      .sort((a, b) => ((new Date(b.date)) - (new Date(a.date))))
+      .map((el, index) =>
+        <ReviewsItem review = {el} key={`${el}-${index}`}/>
       )}
     </ul>
   );
 };
 
 ReviewsList.propTypes = {
-  reviewIds: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-  reviews: PropTypes.objectOf(
+  reviews: PropTypes.arrayOf(
       PropTypes.shape({
         avatarPath: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,

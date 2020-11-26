@@ -2,9 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import {MAX_RATING_VALUE} from "../../consts";
 
+const Months = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
+
 const ReviewsItem = (props) => {
   const {avatarPath: reviewAvatarPath, name, rating: reviewRating, reviewText, date} = props.review;
   const reviewRatingPercentValue = (Math.round(reviewRating) / MAX_RATING_VALUE) * 100;
+  const currentDate = new Date(date);
 
   return (
     <li className="reviews__item">
@@ -26,7 +29,7 @@ const ReviewsItem = (props) => {
         <p className="reviews__text">
           {reviewText}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{`${Months[currentDate.getMonth()]} ${currentDate.getFullYear()}`}</time>
       </div>
     </li>
   );
