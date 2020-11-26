@@ -30,7 +30,7 @@ const PlaceCard = ({onHover, offer, className}) => {
             <b className="place-card__price-value">&euro;{costValue}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <BookmarkButton offer={offer} />
+          <BookmarkButton offer={offer} parentClassPrefix={`place-card`} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
