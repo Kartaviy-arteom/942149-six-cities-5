@@ -30,8 +30,6 @@ const BookmarkButton = ({offer, updateOffer, authorizationStatus, redirectToRout
 
 BookmarkButton.propTypes = {
   offer: PlaceCardProp,
-  onActiveChange: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
   updateOffer: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   redirectToRoute: PropTypes.func.isRequired,
