@@ -31,7 +31,7 @@ Promise.all([
 
   ReactDOM.render(
       <Provider store = {store}>
-        <App reviews = {reviews}/>,
+        <App/>,
       </Provider>,
       rootElement
   );
