@@ -74,7 +74,7 @@ class PropertyPage extends PureComponent {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  {/* <BookmarkButton offer={activeOffer} /> */}
+                  <BookmarkButton offer={activeOffer} parentClassPrefix={`property`} />
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
