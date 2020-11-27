@@ -1,6 +1,7 @@
 import React from "react";
 import {withActiveItem} from "../../hocs/with-active-item/with-active-item";
 import {withTextValue} from "../../hocs/with-text-value/with-text-value";
+import {withActiveFlag} from "../../hocs/with-active-flag/with-active-flag";
 import PropTypes from "prop-types";
 
 const starConfigs = [
@@ -31,7 +32,7 @@ const starConfigs = [
   },
 ];
 
-const CommentForm = ({onItemActive, onTextChange, text, activeElement}) => {
+const CommentForm = ({onItemActive, onTextChange, text, activeElementisActive: isFormValid, onActiveChange: switchDisableFormStatus}) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -44,6 +45,12 @@ const CommentForm = ({onItemActive, onTextChange, text, activeElement}) => {
 
   const handleTextAreaChange = (evt) => {
     onTextChange(evt.target.value);
+  };
+  
+  const switchFormValid = () => {
+    if (activeElement && text.length >= 50 && text.length <= 300) {
+      switchDisableFormStatus();
+    }
   };
 
   return (
@@ -66,7 +73,7 @@ const CommentForm = ({onItemActive, onTextChange, text, activeElement}) => {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isFormValid}>Submit</button>
       </div>
     </form>
   );
@@ -79,4 +86,4 @@ CommentForm.propTypes = {
   activeElement: PropTypes.string
 };
 
-export default withTextValue(withActiveItem(CommentForm));
+export default withActiveFlag(withTextValue(withActiveItem(CommentForm)));
