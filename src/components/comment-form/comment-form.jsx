@@ -43,7 +43,6 @@ const CommentForm = ({onItemActive, onTextChange, text, activeElement, isActive:
   };
 
   const handleChooseRating = (evt) => {
-    evt.preventDefault();
     onItemActive(evt.target.id);
   };
 
