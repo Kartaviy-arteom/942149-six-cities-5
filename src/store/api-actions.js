@@ -44,3 +44,7 @@ export const getNerbyOffers = (id) => (dispatch, _getState, api) =>
   api.get(`/hotels/${id}/nearby`)
   .then(({data}) => data.map(adaptOfferToClient))
   .then((offers) => dispatch(ActionCreator.getNerbyOffers(offers)));
+
+export const postingComment = (hotelId) => (dispatch, _getState, api) => (
+  api.post(`//comments/${hotelId}`)
+);
