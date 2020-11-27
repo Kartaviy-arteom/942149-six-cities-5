@@ -45,6 +45,21 @@ export const getNerbyOffers = (id) => (dispatch, _getState, api) =>
   .then(({data}) => data.map(adaptOfferToClient))
   .then((offers) => dispatch(ActionCreator.getNerbyOffers(offers)));
 
-export const postingComment = (hotelId) => (dispatch, _getState, api) => (
-  api.post(`//comments/${hotelId}`)
+export const postingComment = (hotelId, {comment, rating}, {onSuccess, onError}) => (dispatch, _getState, api) => (
+  api.post(`/comments/${hotelId}`, {comment, rating})
+    .then(({data}) => data.map(adaptCommentToClient))
+    .then((data) => {
+      dispatch(ActionCreator.getOfferComments(data));
+      if (onSuccess) {
+        onSuccess();
+      }
+    })
+    .catch((err) => {
+      if (err.response.status !== HttpCode.UNAUTHORIZED) {
+        console.log(err);
+      }
+      if (errorCallback) {
+        errorCallback();
+      }
+    })
 );
