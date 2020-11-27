@@ -4,6 +4,9 @@ import {withTextValue} from "../../hocs/with-text-value/with-text-value";
 import {withActiveFlag} from "../../hocs/with-active-flag/with-active-flag";
 import PropTypes from "prop-types";
 
+const MIN_COMMENT_LENGTH = 50;
+const MAX_COMMENT_LENGTH = 300;
+
 const starConfigs = [
   {
     id: `5-stars`,
@@ -32,7 +35,7 @@ const starConfigs = [
   },
 ];
 
-const CommentForm = ({onItemActive, onTextChange, text, activeElementisActive: isFormValid, onActiveChange: switchDisableFormStatus}) => {
+const CommentForm = ({onItemActive, onTextChange, text, activeElement, isActive: isFormValid, onActiveChange: switchDisableFormStatus}) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -40,15 +43,18 @@ const CommentForm = ({onItemActive, onTextChange, text, activeElementisActive: i
   };
 
   const handleChooseRating = (evt) => {
+    evt.preventDefault();
     onItemActive(evt.target.id);
   };
 
   const handleTextAreaChange = (evt) => {
     onTextChange(evt.target.value);
   };
-  
+
+  const isTextAreaValid = text.length >= MIN_COMMENT_LENGTH && MAX_COMMENT_LENGTH <= 300;
+
   const switchFormValid = () => {
-    if (activeElement && text.length >= 50 && text.length <= 300) {
+    if (activeElement && (text.length >= 50 && text.length <= 300)) {
       switchDisableFormStatus();
     }
   };
