@@ -1,6 +1,6 @@
 import React from "react";
 
-const NoFavoriteOffers = (props) => {
+const NoFavoriteOffers = () => {
   return (
     <main className="page__main page__main--favorites page__main--favorites-empty">
       <div className="page__favorites-container container">
@@ -13,7 +13,7 @@ const NoFavoriteOffers = (props) => {
         </section>
       </div>
     </main>
-  )
-}
+  );
+};
 
 export default NoFavoriteOffers;
