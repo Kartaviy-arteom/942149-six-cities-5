@@ -22,11 +22,10 @@ class PropertyPage extends PureComponent {
   }
 
   componentDidMount() {
-    const currentOfferId = this.props.match.params.id;
     this.props.onItemActive();
   }
 
-  componentDidUpdate(precProps, prevState) {
+  componentDidUpdate() {
     const currentOfferId = this.props.match.params.id;
 
     if (currentOfferId !== this.props.activeElement) {
@@ -174,6 +173,8 @@ PropertyPage.propTypes = {
   redirectToRoute: PropTypes.func.isRequired,
   getNerbyOffers: PropTypes.func.isRequired,
   getOfferComments: PropTypes.func.isRequired,
+  onItemActive: PropTypes.func.isRequired,
+  activeElement: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
