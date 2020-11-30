@@ -40,4 +40,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+export {BookmarkButton};
 export default connect(mapStateToProps, mapDispatchToProps)(BookmarkButton);
