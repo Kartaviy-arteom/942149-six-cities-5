@@ -42,7 +42,7 @@ const MainPage = ({offers, activeCity, getHoveredOffer, activeOffer, authorizati
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{validOffers.length} places to stay in {activeCity}</b>
                 <SortingOptions />
-                <PlacesList offers={validOffers} className={`cities__places-list tabs__content`} childClassName={`cities__place-card`} onHover={onHoverHandle} placeCardBookmarkHandler={changeFavoriteOfferStatus}/>
+                <PlacesList offers={validOffers} className={`cities__places-list tabs__content`} childClassName={`cities`} onHover={onHoverHandle} placeCardBookmarkHandler={changeFavoriteOfferStatus}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">

@@ -146,7 +146,7 @@ class PropertyPage extends PureComponent {
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <PlacesList offers={nearbyOffers} className={`near-places__list`} childClassName={`near-places__card`} placeCardBookmarkHandler={this._changeFavoriteOfferStatus}/>
+              <PlacesList offers={nearbyOffers} className={`near-places__list`} childClassName={`near-places`} placeCardBookmarkHandler={this._changeFavoriteOfferStatus}/>
             </section>
           </div>
         </main>

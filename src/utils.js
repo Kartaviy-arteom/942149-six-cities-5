@@ -1,3 +1,5 @@
+import {CITIES} from "./consts";
+
 export const adaptOfferToClient = (receivedOffer) => {
   const adaptedOffer = Object.assign(
       {},
@@ -97,4 +99,15 @@ export const adaptCommentToServer = (commentTextValue, comentRatingValue) => {
     comment: commentTextValue,
     rating: comentRatingValue,
   };
+};
+
+export const getOffersSortByCities = (offers) => {
+  let sortedOffers = {};
+  sortedOffers.offersCount = offers.length;
+  CITIES.forEach((city) => {
+    sortedOffers[city] = [];
+    sortedOffers[city] = offers.filter((offer) => offer.city === city);
+  });
+
+  return sortedOffers;
 };
