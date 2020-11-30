@@ -12,29 +12,24 @@ import {MAX_RATING_VALUE} from "../../consts";
 import BookmarkButton from "../bookmark-button/bookmark-button";
 import {AuthorizationStatus} from "../../consts";
 import {ActionCreator} from "../../store/action";
+import {withActiveItem} from "../../hocs/with-active-item/with-active-item";
 
 const MAX_PHOTOS_COUNT = 6;
 class PropertyPage extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
     this._changeFavoriteOfferStatus = this._changeFavoriteOfferStatus.bind(this);
   }
 
   componentDidMount() {
-    const currentOfferId = this.props.match.params.id;
-    this.setState({
-      _offerId: currentOfferId
-    });
+    this.props.onItemActive();
   }
 
-  componentDidUpdate(precProps, prevState) {
+  componentDidUpdate() {
     const currentOfferId = this.props.match.params.id;
 
-    if (currentOfferId !== prevState._offerId) {
-      this.setState({
-        _offerId: currentOfferId
-      });
+    if (currentOfferId !== this.props.activeElement) {
+      this.props.onItemActive(currentOfferId);
       this.props.getOffer(currentOfferId);
       this.props.getNerbyOffers(currentOfferId);
       this.props.getOfferComments(currentOfferId);
@@ -56,7 +51,7 @@ class PropertyPage extends PureComponent {
       );
     }
     const {nearbyOffers, activeOffer, comments} = this.props;
-    const {isPremium, photoPaths, costValue, ratingValue, title, type, bedroomsCount, maxGuestsCount, owner, description, amenities} = activeOffer;
+    const {isPremium, photoPaths, costValue, ratingValue, title, type, bedroomsCount, maxGuestsCount, owner, description, amenities, offerId} = activeOffer;
     const {avatarPath, ownerName, isSuper} = owner;
     const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
     return (
@@ -138,7 +133,7 @@ class PropertyPage extends PureComponent {
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                   <ReviewsList reviews={comments}/>
-                  <CommentForm />
+                  {this.props.authorizationStatus === AuthorizationStatus.AUTH ? (<CommentForm currentOfferId={offerId}/>) : ``}
                 </section>
               </div>
             </div>
@@ -150,7 +145,7 @@ class PropertyPage extends PureComponent {
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <PlacesList offers={nearbyOffers} className={`near-places__list`} childClassName={`near-places__card`} placeCardBookmarkHandler={this._changeFavoriteOfferStatus}/>
+              <PlacesList offers={nearbyOffers} className={`near-places__list`} childClassName={`near-places`} placeCardBookmarkHandler={this._changeFavoriteOfferStatus}/>
             </section>
           </div>
         </main>
@@ -178,6 +173,8 @@ PropertyPage.propTypes = {
   redirectToRoute: PropTypes.func.isRequired,
   getNerbyOffers: PropTypes.func.isRequired,
   getOfferComments: PropTypes.func.isRequired,
+  onItemActive: PropTypes.func.isRequired,
+  activeElement: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
@@ -205,4 +202,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyPage);
+export default withActiveItem(connect(mapStateToProps, mapDispatchToProps)(PropertyPage));

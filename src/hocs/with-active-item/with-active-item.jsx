@@ -10,6 +10,7 @@ const withActiveItem = (Component) => {
       };
 
       this._handleItemActive = this._handleItemActive.bind(this);
+      this._clearItemActive = this._clearItemActive.bind(this);
     }
 
     _handleItemActive(currentElement) {
@@ -18,9 +19,15 @@ const withActiveItem = (Component) => {
       }));
     }
 
+    _clearItemActive() {
+      this.setState(() => ({
+        activeElement: null,
+      }));
+    }
+
     render() {
       return (
-        <Component {...this.props} activeElement={this.state.activeElement} onItemActive={this._handleItemActive}/>
+        <Component {...this.props} activeElement={this.state.activeElement} onItemActive={this._handleItemActive} clearItemActive={this._clearItemActive}/>
       );
     }
   };

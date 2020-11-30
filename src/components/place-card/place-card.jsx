@@ -10,14 +10,14 @@ const PlaceCard = ({onHover, offer, className, placeCardBookmarkHandler}) => {
   const {isPremium, previewImage, costValue, ratingValue, title, type, offerId} = offer;
   const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
   return (
-    <article className={`${className} place-card`}
+    <article className={`${className}__card ${className}__place-card place-card`}
       onMouseEnter={onHover ? () => {
         onHover(offer);
       } : undefined
       }
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offerId}`}>
           <div>
             <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>

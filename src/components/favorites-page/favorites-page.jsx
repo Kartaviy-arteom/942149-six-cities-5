@@ -1,89 +1,96 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import PlaceCardProp from "../place-card/place-card.prop";
+import {connect} from "react-redux";
+import {fetchFavoriteOffers, deleteOffer} from "../../store/api-actions";
 import Header from "../header/header";
+import NoFavoriteOffers from "../no-favorite-offers/no-favorite-offers";
+import PlacesList from "../places-list/places-list";
 import {Link} from "react-router-dom";
-import {MAX_RATING_VALUE} from "../../consts";
 
 
-const FavoritesPage = (props) => {
-  const {offers} = props;
-  const firstOffer = offers[0];
-  const {photoPaths, costValue, ratingValue, title, type} = firstOffer;
-  const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
+class FavoritesPage extends PureComponent {
+  constructor(props) {
+    super(props);
+    this._cities = this.props.cities;
+    this._changeFavoriteOfferStatus = this._changeFavoriteOfferStatus.bind(this);
+  }
 
-  return (
-    <div className="page">
-      <Header />
+  componentDidMount() {
+    this.props.loadFavoriteOffers(this._cities);
+  }
 
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <article className="favorites__card place-card">
-                    <div className="favorites__image-wrapper place-card__image-wrapper">
-                      <Link to="/offer">
-                        <div>
-                          <img className="place-card__image" src={photoPaths[0]} width="150" height="110" alt="Place image" />
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="favorites__card-info place-card__info">
-                      <div className="place-card__price-wrapper">
-                        <div className="place-card__price">
-                          <b className="place-card__price-value">&euro;{costValue} </b>
-                          <span className="place-card__price-text">&#47;&nbsp;night</span>
-                        </div>
-                        <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                          <svg className="place-card__bookmark-icon" width="18" height="19">
-                            <use xlinkHref="#icon-bookmark"></use>
-                          </svg>
-                          <span className="visually-hidden">In bookmarks</span>
-                        </button>
-                      </div>
-                      <div className="place-card__rating rating">
-                        <div className="place-card__stars rating__stars">
-                          <span style={{width: `${ratingPercentValue}%`}}></span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <h2 className="place-card__name">
-                        <Link to="/offer">
-                          <span>{title}</span>
-                        </Link>
-                      </h2>
-                      <p className="place-card__type">{type}</p>
-                    </div>
-                  </article>
+  _changeFavoriteOfferStatus(offer) {
+    this.props.deleteOffer(offer.offerId, Number(!offer.isFavorite));
+  }
 
-                </div>
-              </li>
+  render() {
+    const {offers} = this.props;
+    if (!offers) {
+      return (
+        <div className="loading">Loading ...</div>
+      );
+    }
 
-            </ul>
-          </section>
-        </div>
-      </main>
-      <footer className="footer container">
-        <Link className="footer__logo-link" to="/">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </Link>
-      </footer>
-    </div>
-  );
-};
+    return (
+      <div className={`page page__main--favorites ${offers.offersCount === 0 ? `page--favorites-empty` : ``}`}>
+        <Header />
+        {offers.offersCount !== 0 ?
+          (
+            <main className="page__main page__main--favorites">
+              <div className="page__favorites-container container">
+                <section className="favorites">
+                  <h1 className="favorites__title">Saved listing</h1>
+                  <ul className="favorites__list">
+
+                    {this.props.cities.map((city, index) => (
+                      offers[city].length === 0 ? `` : (
+                        <li className="favorites__locations-items" key = {`${city}-${index}`}>
+                          <div className="favorites__locations locations locations--current">
+                            <div className="locations__item">
+                              <a className="locations__item-link" href="#">
+                                <span>{city}</span>
+                              </a>
+                            </div>
+                          </div>
+                          <PlacesList offers={this.props.offers[city]} className={`favorites__places`} childClassName={`favorites`} placeCardBookmarkHandler={this._changeFavoriteOfferStatus}/>
+                        </li>
+                      )
+                    ))}
+
+                  </ul>
+                </section>
+              </div>
+            </main>) : <NoFavoriteOffers/>}
+
+        <footer className="footer container">
+          <Link className="footer__logo-link" to="/">
+            <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
+          </Link>
+        </footer>
+      </div>
+    );
+  }
+}
 
 FavoritesPage.propTypes = {
-  offers: PropTypes.arrayOf(PlaceCardProp).isRequired,
+  offers: PropTypes.object,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  loadFavoriteOffers: PropTypes.func.isRequired,
+  deleteOffer: PropTypes.func.isRequired
 };
 
-export default FavoritesPage;
+const mapStateToProps = (state) => ({
+  offers: state.DATA.favoriteOffers,
+  cities: state.APLICATION_PROCESS.cities
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFavoriteOffers() {
+    dispatch(fetchFavoriteOffers());
+  },
+  deleteOffer(hotelId, status) {
+    dispatch(deleteOffer(hotelId, status));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

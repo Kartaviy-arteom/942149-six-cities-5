@@ -1,7 +1,5 @@
 import {ActionType} from "../../action";
-import {SortTypes} from "../../../consts";
-
-const CITIES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+import {SortTypes, CITIES} from "../../../consts";
 
 const initialState = {
   cities: CITIES,

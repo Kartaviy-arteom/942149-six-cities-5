@@ -1,15 +1,18 @@
 export const ActionType = {
-  CHANGE_CITY: `change city`,
-  CHANGE_SORT_TYPE: `change sort type`,
-  GET_HOVERED_OFFER: `get offer`,
-  LOAD_OFFERS: `load offers`,
+  CHANGE_CITY: `CHANGE_CITY`,
+  CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
+  GET_HOVERED_OFFER: `GET_HOVERED_OFFER`,
+  LOAD_OFFERS: `LOAD_OFFERS`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   GET_USER_INFO: `GET_USER_INFO`,
   UPDATE_OFFER: `UPDATE_OFFER`,
   DOWNLOAD_OFFER: `DOWNLOAD_OFFER`,
   GET_COMMENTS: `GET_COMMENTS`,
-  GET_NERBY_OFFERS: `GET_NERBY_OFFERS`
+  GET_NERBY_OFFERS: `GET_NERBY_OFFERS`,
+  POST_COMMENT: `POST_COMMENT`,
+  LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`,
+  DELETE_OFFER_FROM_FAVORITES: `DELETE_OFFER_FROM_FAVORITES`
 };
 
 export const ActionCreator = {
@@ -29,6 +32,12 @@ export const ActionCreator = {
     type: ActionType.LOAD_OFFERS,
     payload: offers
   }),
+
+  loadFavoriteOffers: (offers) => ({
+    type: ActionType.LOAD_FAVORITE_OFFERS,
+    payload: offers
+  }),
+
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
@@ -57,4 +66,9 @@ export const ActionCreator = {
     type: ActionType.GET_NERBY_OFFERS,
     payload: offers
   }),
+
+  deleteOfferFromFavorites: (offer) => ({
+    type: ActionType.DELETE_OFFER_FROM_FAVORITES,
+    payload: offer
+  })
 };

@@ -9,15 +9,22 @@ const withTextValue = (Component) => {
         text: ``,
       };
       this._handleTextChage = this._handleTextChage.bind(this);
+      this._clearText = this._clearText.bind(this);
     }
 
     _handleTextChage(newText) {
       this.setState(() => ({text: newText}));
     }
 
+    _clearText() {
+      this.setState(() => ({
+        text: ``,
+      }));
+    }
+
     render() {
       return (
-        <Component {...this.props} text={this.state.text} onTextChange={this._handleTextChage}/>
+        <Component {...this.props} text={this.state.text} onTextChange={this._handleTextChage} clearTextValue={this._clearText}/>
       );
     }
   };

@@ -8,7 +8,6 @@ import {createAPI} from "./services/api";
 import {Provider} from "react-redux";
 import rootReducer from "./store/reducers/root-reducer";
 import App from "./components/app/app";
-import reviews from "./mocks/reviews";
 import {fetchOffersList, checkAuth} from "./store/api-actions";
 
 
