@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {fetchFavoriteOffers} from "../../store/api-actions";
@@ -9,13 +9,37 @@ import {Link} from "react-router-dom";
 import {MAX_RATING_VALUE} from "../../consts";
 
 
-const FavoritesPage = (props) => {
-  const {offers} = props;
-  const firstOffer = offers[0];
-  const {photoPaths, costValue, ratingValue, title, type} = firstOffer;
-  const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
+class FavoritesPage extends PureComponent {
+  constructor(props) {
+    super(props);
+    this._cities = this.props.cities;
+  }
 
-  return (
+  _getOffersSortByCities(offers) {
+    let sortedOffers = {
+      sortedOffers.offersCount = offers.length;
+    };
+    this._cities.forEach((city) => {
+      sortedOffers.city = [];
+      sortedOffers.city = offers.filter((offer) => offer.city === city); 
+    });
+    
+    return sortedOffers;
+  }
+  
+  componentDidMount() {
+    this.props.loadFavoriteOffers();
+  } 
+
+  render() {
+    if (!this.offers) {
+      return (
+        <div className="loading">Loading ...</div>
+      );
+    }
+    
+    const ratingPercentValue = (Math.round(ratingValue) / MAX_RATING_VALUE) * 100;
+    
     <div className={`page page__main--favorites ${offers.length === 0 ? `page__main--favorites-empty` : ``}`}>
       <Header />
       {offers.length === 0 ?
@@ -83,7 +107,7 @@ const FavoritesPage = (props) => {
         </Link>
       </footer>
     </div>
-  );
+  }
 };
 
 FavoritesPage.propTypes = {
@@ -92,6 +116,7 @@ FavoritesPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   offers: state.DATA.favoriteOffers,
+  cities: state.APLICATION_PROCESS.cities
 });
 
 const mapDispatchToProps = (dispatch) => ({
