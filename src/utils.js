@@ -91,3 +91,10 @@ export const updateItem = (offers, update) => {
     ...offers.slice(index + 1)
   ];
 };
+
+export const adaptCommentToServer = (commentTextValue, comentRatingValue) => {
+  return {
+    comment: commentTextValue,
+    rating: comentRatingValue,
+  };
+};

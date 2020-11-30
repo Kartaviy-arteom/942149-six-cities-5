@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import PlaceCardProp from "../place-card/place-card.prop";
 import {connect} from "react-redux";
 import {changeOfferStatus} from "../../store/api-actions";
-import {ActionCreator} from "../../store/action";
 
-const BookmarkButton = ({offer, redirectToRoute, parentClassPrefix, handleClick}) => {
+const BookmarkButton = ({offer, parentClassPrefix, handleClick}) => {
   const {isFavorite} = offer;
 
   const onClick = (evt) => {
@@ -28,6 +27,8 @@ BookmarkButton.propTypes = {
   updateOffer: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   redirectToRoute: PropTypes.func.isRequired,
+  parentClassPrefix: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -38,9 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
   updateOffer(hotelId, status) {
     dispatch(changeOfferStatus(hotelId, status));
   },
-  redirectToRoute(url) {
-    dispatch(ActionCreator.redirectToRoute(url));
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookmarkButton);

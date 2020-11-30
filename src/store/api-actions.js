@@ -55,11 +55,8 @@ export const postingComment = (hotelId, {comment, rating}, {onSuccess, onError})
       }
     })
     .catch((err) => {
-      if (err.response.status !== HttpCode.UNAUTHORIZED) {
-        console.log(err);
-      }
-      if (errorCallback) {
-        errorCallback();
+      if (onError) {
+        onError(err);
       }
     })
 );
