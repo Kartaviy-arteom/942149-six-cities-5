@@ -60,3 +60,9 @@ export const postingComment = (hotelId, {comment, rating}, {onSuccess, onError})
       }
     })
 );
+
+export const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
+  api.get(`/favorite`)
+    .then(({data}) => data.map(adaptOfferToClient))
+    .then((offers) => dispatch(ActionCreator.loadFavoriteOffers(offers)))
+);

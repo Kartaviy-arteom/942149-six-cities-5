@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {fetchFavoriteOffers} from "../../store/api-actions";
 import PlaceCardProp from "../place-card/place-card.prop";
 import Header from "../header/header";
 import NoFavoriteOffers from "../no-favorite-offers/no-favorite-offers";
@@ -74,7 +76,7 @@ const FavoritesPage = (props) => {
             </section>
           </div>
         </main>) : <NoFavoriteOffers/>}
-      
+
       <footer className="footer container">
         <Link className="footer__logo-link" to="/">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
@@ -88,4 +90,14 @@ FavoritesPage.propTypes = {
   offers: PropTypes.arrayOf(PlaceCardProp).isRequired,
 };
 
-export default FavoritesPage;
+const mapStateToProps = (state) => ({
+  offers: state.DATA.favoriteOffers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFavoriteOffers() {
+    dispatch(loadFavoriteOffers());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

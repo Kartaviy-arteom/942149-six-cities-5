@@ -13,6 +13,10 @@ const getData = (state = initialState, action) => {
       return Object.assign({}, state, {
         offers: action.payload,
       });
+    case ActionType.LOAD_FAVORITE_OFFERS:
+      return Object.assign({}, state, {
+        favoriteOffers: action.payload,
+      });
     case ActionType.UPDATE_OFFER:
       return Object.assign({}, state, {
         offers: updateItem(state.offers, action.payload),

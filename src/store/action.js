@@ -10,7 +10,8 @@ export const ActionType = {
   DOWNLOAD_OFFER: `DOWNLOAD_OFFER`,
   GET_COMMENTS: `GET_COMMENTS`,
   GET_NERBY_OFFERS: `GET_NERBY_OFFERS`,
-  POST_COMMENT: `POST_COMMENT`
+  POST_COMMENT: `POST_COMMENT`,
+  LOAD_FAVORITE_OFFERS: `load favorite offers`,
 };
 
 export const ActionCreator = {
@@ -30,6 +31,12 @@ export const ActionCreator = {
     type: ActionType.LOAD_OFFERS,
     payload: offers
   }),
+
+  loadFavoriteOffers: (offers) => ({
+    type: ActionType.LOAD_FAVORITE_OFFERS,
+    payload: offers
+  }),
+
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,

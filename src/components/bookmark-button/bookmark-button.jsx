@@ -26,7 +26,6 @@ BookmarkButton.propTypes = {
   offer: PlaceCardProp,
   updateOffer: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  redirectToRoute: PropTypes.func.isRequired,
   parentClassPrefix: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired
 };
