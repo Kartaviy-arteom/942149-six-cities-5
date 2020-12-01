@@ -29,4 +29,5 @@ ReviewsList.propTypes = {
   ).isRequired,
 };
 
+export {ReviewsList};
 export default ReviewsList;
