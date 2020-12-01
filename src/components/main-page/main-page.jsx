@@ -81,6 +81,7 @@ const mapStateToProps = (state) => ({
   activeCity: state.APLICATION_PROCESS.activeCity,
   activeOffer: state.APLICATION_PROCESS.activeOffer,
   authorizationStatus: state.USER.authorizationStatus,
+  offers: state.DATA.offers,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
