@@ -55,4 +55,5 @@ const mapStateToProps = (state) => ({
   sortType: state.APLICATION_PROCESS.sortType
 });
 
+export {PlacesList};
 export default withActiveItem(connect(mapStateToProps)(PlacesList));
