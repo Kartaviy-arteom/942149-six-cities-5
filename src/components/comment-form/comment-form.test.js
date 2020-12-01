@@ -15,9 +15,9 @@ it(`Should CommentForm render correctly`, () => {
       currentOfferId={2}
       onActiveChange={noop}
       changePostStatus={noop}
-      isPosting: {false},
-      isError: {false},
-      isActive: {false},
+      isPosting={false}
+      isError={false}
+      isActive={false}
       changeErrorStatus={noop}
       clearTextValue={noop}
       clearItemActive={noop}

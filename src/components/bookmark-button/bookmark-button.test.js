@@ -14,4 +14,3 @@ it(`Should BookmarkButton render correctly`, () => {
   expect(tree).toMatchSnapshot();
 });
 
-//TODO connect

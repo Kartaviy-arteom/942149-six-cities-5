@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PropTypes from "prop-types";
-import withActiveItem from "./withActiveItem";
+import {withFormState} from "./with-form-state";
 
 const MockComponent = (props) => {
   const {children} = props;
@@ -20,9 +20,9 @@ MockComponent.propTypes = {
   ]).isRequired,
 };
 
-const MockComponentWrapped = withActiveItem(MockComponent);
+const MockComponentWrapped = withFormState(MockComponent);
 
-it(`withActiveItem is rendered correctly`, () => {
+it(`withFormState is rendered correctly`, () => {
   const tree = renderer.create((
     <MockComponentWrapped>
       <React.Fragment />

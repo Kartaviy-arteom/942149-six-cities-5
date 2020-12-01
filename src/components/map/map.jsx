@@ -10,7 +10,7 @@ const PinPath = {
 };
 
 
-class Map extends React.Component {
+export class Map extends React.Component {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
@@ -97,5 +97,4 @@ const mapStateToProps = (state) => ({
   activeCity: state.APLICATION_PROCESS.activeCity
 });
 
-export Map;
 export default connect(mapStateToProps)(Map);

@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {Header} from "./header";
 
 const userInfo = {
-  id: `1`,
+  id: 1,
   email: `test@test.com`,
   name: `john`,
   avatarUrl: `img.jpg`,

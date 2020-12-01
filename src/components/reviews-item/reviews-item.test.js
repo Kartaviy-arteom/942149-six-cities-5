@@ -2,13 +2,11 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {ReviewsItem} from "./reviews-item";
 
-const noop = () => {};
-
 const review = {
-  avatarPath: PropTypes.string.isRequired,
+  avatarPath: `img.jpg`,
   name: `John`,
   rating: 4,
-  date: 
+  date: `2020-10-10T13:38:44.753Z`,
   reviewText: `very good`,
 };
 

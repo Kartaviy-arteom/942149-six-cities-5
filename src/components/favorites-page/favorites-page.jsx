@@ -8,7 +8,7 @@ import PlacesList from "../places-list/places-list";
 import {Link} from "react-router-dom";
 
 
-class FavoritesPage extends PureComponent {
+export class FavoritesPage extends PureComponent {
   constructor(props) {
     super(props);
     this._cities = this.props.cities;
@@ -93,5 +93,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export FavoritesPage;
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

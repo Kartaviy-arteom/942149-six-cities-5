@@ -15,7 +15,7 @@ import {ActionCreator} from "../../store/action";
 import {withActiveItem} from "../../hocs/with-active-item/with-active-item";
 
 const MAX_PHOTOS_COUNT = 6;
-class PropertyPage extends PureComponent {
+export class PropertyPage extends PureComponent {
   constructor(props) {
     super(props);
     this._changeFavoriteOfferStatus = this._changeFavoriteOfferStatus.bind(this);
@@ -202,5 +202,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export PropertyPage;
 export default withActiveItem(connect(mapStateToProps, mapDispatchToProps)(PropertyPage));

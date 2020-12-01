@@ -14,7 +14,7 @@ it(`LoginPage component render correctly`, () => {
       <LoginPage
         onSubmit={noop}
         activeCity={activeCity}
-        authorizationStatus={AuthorizationStatus.NO_AUTH)
+        authorizationStatus={AuthorizationStatus.NO_AUTH}
       />
   ).toJSON();
 

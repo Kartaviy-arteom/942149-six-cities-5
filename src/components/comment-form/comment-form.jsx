@@ -39,7 +39,7 @@ const starConfigs = [
   },
 ];
 
-class CommentForm extends PureComponent {
+export class CommentForm extends PureComponent {
   constructor(props) {
     super(props);
     this._handleTextAreaChange = this._handleTextAreaChange.bind(this);
@@ -146,5 +146,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export CommentForm;
 export default connect(null, mapDispatchToProps)(withFormState(withActiveFlag(withTextValue(withActiveItem(CommentForm)))));
