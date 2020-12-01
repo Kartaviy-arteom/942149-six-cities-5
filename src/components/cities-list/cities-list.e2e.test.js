@@ -6,15 +6,10 @@ import {Provider} from "react-redux";
 import CitiesList from "./cities-list";
 import {createStore} from "redux";
 import {CITIES} from "../../consts";
-import {ActionType} from "../../store/action";
 import reducer from "../../store/reducers/root-reducer";
 
 configure({adapter: new Adapter()});
 const store = createStore(reducer);
-
-const mockEvent = {
-  preventDefault() {}
-};
 
 it(`CitiesList should call changeCity and getHoveredOffer must call 1 time each`, () => {
   const changeCity = jest.fn();
@@ -33,11 +28,7 @@ it(`CitiesList should call changeCity and getHoveredOffer must call 1 time each`
       </Provider>
   );
 
-  wrapper.find(`.locations__item-link.tabs__item`).at(3).simulate(`click`, mockEvent);
+  wrapper.find(`.locations__item-link.tabs__item`).at(0).simulate(`click`);
 
   expect(changeCity).toHaveBeenCalledTimes(1);
-  // expect(getHoveredOffer).toHaveBeenCalledTimes(1, {
-  //   type: ActionType.GET_HOVERED_OFFER,
-  //   payload: null,
-  // });
 });
