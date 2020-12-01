@@ -53,4 +53,5 @@ SortingOptions.propTypes = {
   onActiveChange: PropTypes.func.isRequired
 };
 
+export {SortingOptions};
 export default withActiveFlag(connect(mapStateToProps, mapDispatchToProps)(SortingOptions));
