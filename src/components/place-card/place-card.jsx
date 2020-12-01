@@ -57,4 +57,5 @@ PlaceCard.propTypes = {
   placeCardBookmarkHandler: PropTypes.func.isRequired
 };
 
+export {PlaceCard};
 export default PlaceCard;
