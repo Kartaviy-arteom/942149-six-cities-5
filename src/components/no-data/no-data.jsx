@@ -19,4 +19,5 @@ NoData.propTypes = {
   activeCity: PropTypes.string.isRequired
 };
 
+export {NoData};
 export default NoData;
