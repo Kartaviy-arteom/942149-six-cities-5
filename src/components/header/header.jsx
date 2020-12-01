@@ -56,4 +56,5 @@ Header.propTypes = {
   })
 };
 
+export {Header};
 export default connect(mapStateToProps)(Header);
