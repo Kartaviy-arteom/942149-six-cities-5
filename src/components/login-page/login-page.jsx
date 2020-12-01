@@ -70,4 +70,5 @@ const mapStateToProps = (state) => ({
   authorizationStatus: state.USER.authorizationStatus,
 });
 
+export {LoginPage};
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
