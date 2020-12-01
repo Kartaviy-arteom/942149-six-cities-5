@@ -16,4 +16,5 @@ const NoFavoriteOffers = () => {
   );
 };
 
+export {NoFavoriteOffers};
 export default NoFavoriteOffers;
