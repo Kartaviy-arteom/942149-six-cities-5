@@ -84,4 +84,5 @@ const mapStateToProps = (state) => ({
   offers: state.DATA.offers,
 });
 
+export {MainPage};
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
