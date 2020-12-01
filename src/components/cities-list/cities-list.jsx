@@ -40,4 +40,5 @@ CitiesList.propTypes = {
   getHoveredOffer: PropTypes.func.isRequired,
 };
 
+export {CitiesList};
 export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
