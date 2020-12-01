@@ -146,4 +146,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+export CommentForm;
 export default connect(null, mapDispatchToProps)(withFormState(withActiveFlag(withTextValue(withActiveItem(CommentForm)))));
