@@ -47,4 +47,5 @@ ReviewsItem.propTypes = {
       }).isRequired,
 };
 
+export {ReviewsItem};
 export default ReviewsItem;
