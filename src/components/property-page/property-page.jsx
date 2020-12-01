@@ -202,4 +202,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export PropertyPage;
 export default withActiveItem(connect(mapStateToProps, mapDispatchToProps)(PropertyPage));
