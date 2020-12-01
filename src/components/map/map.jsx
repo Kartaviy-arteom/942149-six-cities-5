@@ -97,4 +97,5 @@ const mapStateToProps = (state) => ({
   activeCity: state.APLICATION_PROCESS.activeCity
 });
 
+export Map;
 export default connect(mapStateToProps)(Map);
