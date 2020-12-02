@@ -9,13 +9,12 @@ const MockComponent = () => <div />;
 const MockComponentWrapped = withTextValue(MockComponent);
 
 it(`Should add and clear text value`, () => {
-    const wrapper = shallow(<MockComponentWrapped/>);
-  
-    wrapper.props().onTextChange(`new text`);
-    expect(wrapper.props().text).toEqual(`new text`);
-  
-    wrapper.props().clearTextValue();
-    expect(wrapper.props().isPosting).toEqual(``);
+  const wrapper = shallow(<MockComponentWrapped/>);
 
-  });
-  
+  wrapper.props().onTextChange(`new text`);
+  expect(wrapper.props().text).toEqual(`new text`);
+
+  wrapper.props().clearTextValue();
+  expect(wrapper.props().text).toEqual(``);
+
+});

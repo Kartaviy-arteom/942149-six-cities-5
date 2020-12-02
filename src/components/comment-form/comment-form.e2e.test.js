@@ -14,7 +14,7 @@ const store = createStore(reducer);
 it(`CommentForm should call _handleSubmit 1 time`, () => {
   const onItemActive = jest.fn();
   const onTextChange = jest.fn();
-  const text = `111111111111111111111111111ssssssssssssssssssssss111111111111111111111111111111`
+  const text = `111111111111111111111111111ssssssssssssssssssssss111111111111111111111111111111`;
   const activeElement = `1-star`;
   const changeErrorStatus = jest.fn();
   const isActive = true;
@@ -43,9 +43,9 @@ it(`CommentForm should call _handleSubmit 1 time`, () => {
             isError={isError}
             changePostStatus={changePostStatus}
             clearTextValue={clearTextValue}
-            clearItemActive={clearTextValue}
-            currentOfferId={clearTextValue}
-            postComment={clearTextValue}
+            clearItemActive={clearItemActive}
+            currentOfferId={currentOfferId}
+            postComment={postComment}
           />
         </BrowserRouter>
       </Provider>

@@ -29,7 +29,7 @@ const offer = {
     isSuper: true,
     ownerId: 1,
     ownerName: `Boris`
-},
+  },
   photoPaths: [`https://`],
   previewImage: `https://`,
   ratingValue: 1,

@@ -1,6 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import FavoritesPage from "./favorites-page";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import reducer from "../../store/reducers/root-reducer";
+import {createStore} from "redux";
+
+const store = createStore(reducer);
 
 const noop = () => {};
 const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
@@ -38,12 +44,18 @@ const offers = {
 
 it(`Should FavoritesPage render correctly`, () => {
   const tree = renderer
-    .create(<FavoritesPage
-      offers={offers}
-      cities={cities}
-      loadFavoriteOffers={noop}
-      deleteOffer={noop}
-    />)
+    .create(
+        <Provider store={store}>
+          <BrowserRouter>
+            <FavoritesPage
+              offers={offers}
+              cities={cities}
+              loadFavoriteOffers={noop}
+              deleteOffer={noop}
+            />
+          </BrowserRouter>
+        </Provider>
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

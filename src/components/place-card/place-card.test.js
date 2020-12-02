@@ -1,8 +1,13 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 import {PlaceCard} from "./place-card";
+import reducer from "../../store/reducers/root-reducer";
 
 const noop = () => {};
+const store = createStore(reducer);
 const offer = {
   amenities: [`Air conditioning`, `Laptop friendly workspace`],
   bedroomsCount: 3,
@@ -33,12 +38,15 @@ const className = `new-card`;
 
 it(`PlaceCard component render correctly`, () => {
   const tree = renderer.create(
-      <PlaceCard
-        onHove={noop}
-        placeCardBookmarkHandler={noop}
-        offer={offer}
-        className={className}
-      />
+      <Provider store={store}>
+        <BrowserRouter>
+          <PlaceCard
+            onHove={noop}
+            placeCardBookmarkHandler={noop}
+            offer={offer}
+            className={className}/>
+        </BrowserRouter>
+      </Provider>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

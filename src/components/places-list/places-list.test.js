@@ -1,8 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {PlacesList} from "./places-list";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import reducer from "../../store/reducers/root-reducer";
 
 const noop = () => {};
+const store = createStore(reducer);
+
 const offers = [
   {
     amenities: [`Air conditioning`, `Laptop friendly workspace`],
@@ -64,15 +70,19 @@ const sortType = `Popular`;
 
 it(`PlacesList component render correctly`, () => {
   const tree = renderer.create(
-      <PlacesList
-        onItemActive={noop}
-        placeCardBookmarkHandler={noop}
-        onHover={noop}
-        offers={offers}
-        className={className}
-        childClassName={childClassName}
-        sortType={sortType}
-      />
+      <Provider store={store}>
+        <BrowserRouter>
+          <PlacesList
+            onItemActive={noop}
+            placeCardBookmarkHandler={noop}
+            onHover={noop}
+            offers={offers}
+            className={className}
+            childClassName={childClassName}
+            sortType={sortType}
+          />
+        </BrowserRouter>
+      </Provider>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
