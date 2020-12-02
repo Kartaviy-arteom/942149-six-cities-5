@@ -1,6 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PropertyPage from "./property-page";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import reducer from "../../store/reducers/root-reducer";
+import {createStore} from "redux";
+
+const store = createStore(reducer);
 
 const noop = () => {};
 const activeOffer = {
@@ -105,20 +111,24 @@ const authorizationStatus = `AUTH`;
 
 it(`PropertyPage component render correctly`, () => {
   const tree = renderer.create(
-      <PropertyPage
-        updateOffer={noop}
-        redirectToRoute={noop}
-        getNerbyOffers={noop}
-        getOfferComments={noop}
-        getOffer={noop}
-        onItemActive={noop}
-        activeElement={``}
-        authorizationStatus={authorizationStatus}
-        match={match}
-        nearbyOffers={nearbyOffers}
-        activeOffer={activeOffer}
-        comments={comments}
-      />
+      <Provider store={store}>
+        <BrowserRouter>
+          <PropertyPage
+            updateOffer={noop}
+            redirectToRoute={noop}
+            getNerbyOffers={noop}
+            getOfferComments={noop}
+            getOffer={noop}
+            onItemActive={noop}
+            activeElement={``}
+            authorizationStatus={authorizationStatus}
+            match={match}
+            nearbyOffers={nearbyOffers}
+            activeOffer={activeOffer}
+            comments={comments}
+          />
+        </BrowserRouter>
+      </Provider>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
