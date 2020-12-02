@@ -46,7 +46,9 @@ it(`BookmarkButton should call onClick 1 time`, () => {
           <BookmarkButton
             parentClassPrefix={`card`}
             handleClick={handleClick}
+            updateOffer={() => {}}
             offer={offer}
+            authorizationStatus={``}
           />
         </BrowserRouter>
       </Provider>

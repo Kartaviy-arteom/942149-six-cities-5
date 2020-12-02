@@ -12,23 +12,21 @@ configure({adapter: new Adapter()});
 const store = createStore(reducer);
 
 it(`CitiesList should call changeCity and getHoveredOffer must call 1 time each`, () => {
-  const changeCity = jest.fn();
-  const getHoveredOffer = jest.fn();
 
   const wrapper = mount(
       <Provider store={store}>
         <BrowserRouter>
           <CitiesList
             city={`Paris`}
-            changeCity={changeCity}
-            getHoveredOffer={getHoveredOffer}
             cities={CITIES}
           />
         </BrowserRouter>
       </Provider>
   );
 
-  wrapper.find(`.locations__item-link.tabs__item`).at(0).simulate(`click`);
+  const prevCity = store.getState().APLICATION_PROCESS.activeCity;
+  wrapper.find(`.locations__item-link.tabs__item`).at(1).simulate(`click`);
 
-  expect(changeCity).toHaveBeenCalledTimes(1);
+  expect(prevCity).toStrictEqual(`Paris`);
+  expect(store.getState().APLICATION_PROCESS.activeCity).toStrictEqual(`Cologne`);
 });

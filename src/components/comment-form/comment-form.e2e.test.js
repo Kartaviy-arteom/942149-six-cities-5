@@ -12,6 +12,8 @@ configure({adapter: new Adapter()});
 const store = createStore(reducer);
 
 it(`CommentForm should call _handleSubmit 1 time`, () => {
+  jest.spyOn(CommentForm.prototype, `_handleSubmit`);
+
   const onItemActive = jest.fn();
   const onTextChange = jest.fn();
   const text = `111111111111111111111111111ssssssssssssssssssssss111111111111111111111111111111`;
@@ -24,7 +26,7 @@ it(`CommentForm should call _handleSubmit 1 time`, () => {
   const changePostStatus = jest.fn();
   const clearTextValue = jest.fn();
   const clearItemActive = jest.fn();
-  const currentOfferId = jest.fn();
+  const currentOfferId = 10;
   const postComment = jest.fn();
 
 
@@ -53,5 +55,5 @@ it(`CommentForm should call _handleSubmit 1 time`, () => {
 
   wrapper.find(`.reviews__form.form`).at(0).simulate(`submit`, {preventDefault: () => {}});
 
-  expect(CommentForm._handleSubmit).toHaveBeenCalledTimes(1);
+  expect(CommentForm.prototype._handleSubmit).toHaveBeenCalledTimes(1);
 });

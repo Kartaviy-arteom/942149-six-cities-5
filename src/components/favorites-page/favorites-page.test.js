@@ -4,11 +4,19 @@ import FavoritesPage from "./favorites-page";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import reducer from "../../store/reducers/root-reducer";
-import {createStore} from "redux";
+import {createAPI} from "../../services/api";
+import {createStore, applyMiddleware} from "redux";
+import thunk from "redux-thunk";
+import {composeWithDevTools} from "redux-devtools-extension";
 
-const store = createStore(reducer);
+const api = createAPI(() => {});
+const store = createStore(
+    reducer,
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api))
+    )
+);
 
-const noop = () => {};
 const cities = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 const offers = {
   offersCount: 2,
@@ -50,8 +58,6 @@ it(`Should FavoritesPage render correctly`, () => {
             <FavoritesPage
               offers={offers}
               cities={cities}
-              loadFavoriteOffers={noop}
-              deleteOffer={noop}
             />
           </BrowserRouter>
         </Provider>
