@@ -2,6 +2,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Map from "./map";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import reducer from "../../store/reducers/root-reducer";
+import {createStore} from "redux";
+
+const store = createStore(reducer);
 
 const validOffers = [
   {
@@ -60,17 +66,23 @@ const validOffers = [
 const activeCity = `Paris`;
 const activeOffer = validOffers[0];
 
-describe(`<Map /> render`, () => {
+describe(`Map render correctly`, () => {
   const div = document.createElement(`div`);
   div.id = `map`;
   document.body.appendChild(div);
   it(`renders Map correctly with `, () => {
     const mapComponent = renderer
-      .create(<Map
-        validOffers={validOffers}
-        activeOffer={activeOffer}
-        activeCity={activeCity}
-      />)
+      .create(
+          <Provider store={store}>
+            <BrowserRouter>
+              <Map
+                validOffers={validOffers}
+                activeOffer={activeOffer}
+                activeCity={activeCity}
+              />
+            </BrowserRouter>
+          </Provider>
+      )
       .toJSON();
 
     expect(mapComponent).toMatchSnapshot();
