@@ -2,6 +2,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {MainPage} from "./main-page";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import reducer from "../../store/reducers/root-reducer";
+import {createStore} from "redux";
+
+const store = createStore(reducer);
 
 const noop = () => {};
 const offers = [
@@ -68,16 +74,19 @@ const AuthorizationStatus = {
 
 it(`MainPage component render correctly`, () => {
   const tree = renderer.create(
-      <MainPage
-        getHoveredOffer={noop}
-        onSubmit={noop}
-        updateOffer={noop}
-        redirectToRoute={noop}
-        authorizationStatus={AuthorizationStatus.AUTH}
-        offers={offers}
-        activeCity={activeCity}
-        activeOffer={activeOffer}
-      />
+      <Provider store={store}>
+        <BrowserRouter>
+          <MainPage
+            getHoveredOffer={noop}
+            onSubmit={noop}
+            updateOffer={noop}
+            redirectToRoute={noop}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            offers={offers}
+            activeCity={activeCity}
+            activeOffer={activeOffer}/>
+        </BrowserRouter>
+      </Provider>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
