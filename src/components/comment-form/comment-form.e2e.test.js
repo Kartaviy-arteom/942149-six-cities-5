@@ -17,7 +17,7 @@ it(`CommentForm should call _handleSubmit 1 time`, () => {
   const text = `111111111111111111111111111ssssssssssssssssssssss111111111111111111111111111111`
   const activeElement = `1-star`;
   const changeErrorStatus = jest.fn();
-  const isActive = true,
+  const isActive = true;
   const onActiveChange = jest.fn();
   const isPosting = false;
   const isError = false;
@@ -26,7 +26,7 @@ it(`CommentForm should call _handleSubmit 1 time`, () => {
   const clearItemActive = jest.fn();
   const currentOfferId = jest.fn();
   const postComment = jest.fn();
-  
+
 
   const wrapper = mount(
       <Provider store={store}>
@@ -51,7 +51,7 @@ it(`CommentForm should call _handleSubmit 1 time`, () => {
       </Provider>
   );
 
-  wrapper.find(`.reviews__form form`).simulate(`submit`, {preventDefault: () => {}});
+  wrapper.find(`.reviews__form.form`).at(0).simulate(`submit`, {preventDefault: () => {}});
 
   expect(CommentForm._handleSubmit).toHaveBeenCalledTimes(1);
 });
