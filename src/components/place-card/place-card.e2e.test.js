@@ -54,7 +54,7 @@ it(`PlaceCard should call onHover 1 time`, () => {
       </Provider>
   );
 
-  wrapper.find(`.place-card`).simulate(`onmouseover`, {preventDefault: () => {}});
+  wrapper.find(`.place-card`).simulate(`mouseenter`, {preventDefault: () => {}});
 
   expect(onHover).toHaveBeenCalledTimes(1);
 });
